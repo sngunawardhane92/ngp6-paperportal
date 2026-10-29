@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="si" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -154,28 +154,292 @@
 
     <!-- Application Logic Script -->
     <script>
-        const advertisements = [
-            {
-                videoUrl: 'https://www.youtube.com/watch?v=PIrLGBgoz2U',
-                youtubeChannelUrl: 'https://www.youtube.com/@YourChannel1',
-                whatsappNumber: '94712345678'
-            },
-            {
-                videoUrl: 'https://youtu.be/4iIGMRsjlmI',
-                youtubeChannelUrl: 'https://www.youtube.com/@YourChannel2',
-                whatsappNumber: ''
-            },
-            {
-                videoUrl: 'https://youtube.com/shorts/37mbAGrhdxo?feature=share',
-                youtubeChannelUrl: 'https://www.youtube.com/@YourChannel3',
-                whatsappNumber: '94771234567'
-            }
-        ];
+        /* 
+        ========================================================================
+        📢 [1] විෂය අනුව වෙනස් වන දැන්වීම් ලැයිස්තුව (SUBJECT-WISE ADVERTISEMENTS)
+        - මෙහි විෂය නම (උදා: 'Physics', 'Political Science', 'Maths (ගණිතය)') හරියටම දෙන්න.
+        - වෙනත් විෂයන් සඳහා ද මෙලෙසම අලුතින් එක් කළ හැක.
+        - 'default' යනු වෙනත් නිශ්චිත විෂය දැන්වීම් නැති විට පෙන්වන පොදු ලැයිස්තුවයි.
+        ========================================================================
+        */
+        const subjectAdvertisements = {
+            'Physics': [
+                {
+                    videoUrl: 'https://www.youtube.com/watch?v=PIrLGBgoz2U',
+                    youtubeChannelUrl: 'https://www.youtube.com/@NGP6Physics',
+                    whatsappNumber: '94712345678'
+                },
+                {
+                    videoUrl: 'https://youtu.be/4iIGMRsjlmI',
+                    youtubeChannelUrl: 'https://www.youtube.com/@PhysicsTeacher',
+                    whatsappNumber: '94771234567'
+                }
+            ],
+            'Political Science': [
+                {
+                    videoUrl: 'https://youtube.com/shorts/37mbAGrhdxo?feature=share',
+                    youtubeChannelUrl: 'https://www.youtube.com/@ArtsEducationSL',
+                    whatsappNumber: '94701112233'
+                }
+            ],
+            'Maths (ගණිතය)': [
+                {
+                    videoUrl: 'https://youtu.be/4iIGMRsjlmI',
+                    youtubeChannelUrl: 'https://www.youtube.com/@MathsGuru',
+                    whatsappNumber: '94755556677'
+                }
+            ],
+            // වෙනත් විෂයන් සඳහා අවශ්‍ය නම් මෙලෙස එකතු කරන්න:
+            // 'Chemistry': [ { videoUrl: '...', youtubeChannelUrl: '...', whatsappNumber: '...' } ],
+
+            // පොදු දැන්වීම් ලැයිස්තුව (Default Ads for other subjects)
+            'default': [
+                {
+                    videoUrl: 'https://www.youtube.com/watch?v=PIrLGBgoz2U',
+                    youtubeChannelUrl: 'https://www.youtube.com/@NGP6Official',
+                    whatsappNumber: '94712345678'
+                }
+            ]
+        };
 
         const paperLinks = {
-            '2023_Physics_MCQ Paper': 'https://drive.google.com/file/d/YOUR_2023_PHYSICS_MCQ_ID/view?usp=sharing',
-            '2023_Physics_Essay Paper': 'https://drive.google.com/file/d/YOUR_2023_ESSAY_FILE_ID/view?usp=sharing',
-            '2023_Physics_Marking Scheme': 'https://drive.google.com/file/d/YOUR_2023_MARKING_FILE_ID/view?usp=sharing',
+            // --- G.C.E. A/L Physics (2015 - 2026) ---
+            '2015_Physics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,01,SING,I,II-01172020220448.pdf',
+            '2015_Physics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,01,SING,I,II-01172020220448.pdf',
+            '2015_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972916/2015_Physics_Marking_Scheme.pdf',
+            '2016_Physics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,01,S,1,2-10212019210422.pdf',
+            '2016_Physics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,01,S,1,2-10212019210422.pdf',
+            '2016_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972955/2016_Physics_Marking_Scheme.pdf',
+            '2017_Physics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/01sinhala0102-09262019175902.pdf',
+            '2017_Physics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/01sinhala0102-09262019175902.pdf',
+            '2017_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792973057/2017_Physics_Marking_Scheme_compressed.pdf',
+            '2018_Physics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/01Sinhala0102.pdf',
+            '2018_Physics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/01Sinhala0102.pdf',
+            '2018_Physics_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/01-Physics-Sinhala-2018_1599128931030.pdf',
+            '2019_Physics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019-NEW(AL)-01-S-I,II-04202020131518.pdf',
+            '2019_Physics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019-NEW(AL)-01-S-I,II-04202020131518.pdf',
+            '2019_Physics_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/01-Physics-2019-Sinhala_1600415390146.pdf',
+            '2020_Physics_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000066/2020_Physics_Part_I_SM.pdf',
+            '2020_Physics_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000118/2020_G.C.E_A_L_Physics_Part_II_Sinhala_Medium.pdf',
+            '2020_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000430/2020_G.C.E_A_L_Physics_Full_Marking_Scheme_Sinhala_Medium_1__compressed.pdf',
+            '2021_Physics_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000234/2021_G.C.E_A_L_Physics_Part_I_Sinhala_Medium.pdf',
+            '2021_Physics_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000306/2021_G.C.E_A_L_Physics_Part_II_Sinhala_Medium.pdf',
+            '2021_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000587/2021_G.C.E_A_L_Physics_Full_Marking_Scheme_Sinhala_Medium__compressed.pdf',
+            '2022_Physics_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999587/2022_G.C.E_A_L_Physics_Part_I_Sinhala_Medium.pdf',
+            '2022_Physics_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999739/2022_G.C.E_A_L_Physics_Part_II_Sinhala_Medium__compressed.pdf',
+            '2022_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999844/2022_G.C.E_A_L_Physics_Full_Marking_Scheme_Sinhala_Medium__compressed.pdf',
+            '2023_Physics_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999014/2023_G.C.E_A_L_Physics_Part_I_Sinhala_Medium.pdf',
+            '2023_Physics_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999103/2023_G.C.E_A_L_Physics_Part_II_Sinhala_Medium.pdf',
+            '2023_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788999320/2023_G.C.E_A_L_Physics_Full_Marking_Scheme_Sinhala_Medium__compressed.pdf',
+            '2024_Physics_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/01-S-i,ii-10212025224924_1761553226373.pdf',
+            '2024_Physics_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/01-S-i,ii-10212025224924_1761553226373.pdf',
+            '2024_Physics_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792973176/2024_Physics_Marking_Scheme_compressed.pdf',
+            '2025_Physics_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-01SI_1779703685676.pdf',
+            '2025_Physics_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-01SI_1779703685676.pdf',
+            '2026_Physics_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788833860/2026_AL_MCQ.pdf',
+            '2026_Physics_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788998917/2026_G.C.E_A_L_Physics_Part_II_Sinhala_Medium_1__compressed.pdf',
+            // --- G.C.E. A/L Combined Maths (2015 - 2026) ---
+            '2015_Combined Maths_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,10,SING,I,II-01172020220833.pdf',
+            '2015_Combined Maths_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,10,SING,I,II-01172020220833.pdf',
+            '2016_Combined Maths_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,10,S,1,2-10212019223555.pdf',
+            '2016_Combined Maths_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,10,S,1,2-10212019223555.pdf',
+            '2016_Combined Maths_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972773/2016_CM_Marking_compressed.pdf',
+            '2017_Combined Maths_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/10singhala01,02-09262019182417.pdf',
+            '2017_Combined Maths_Essay Paper': 'https://www.doenets.lk/documents/past-papers/10singhala01,02-09262019182417.pdf',
+            '2017_Combined Maths_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972682/2017_CM_Marking_compressed.pdf',
+            '2018_Combined Maths_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/10sinhala0102.pdf',
+            '2018_Combined Maths_Essay Paper': 'https://www.doenets.lk/documents/past-papers/10sinhala0102.pdf',
+            '2018_Combined Maths_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/10-Combined%20Maths%20I-Sinhala-2018_1599130353091.pdf',
+            '2019_Combined Maths_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,10,S,I,II-04232020084311.pdf',
+            '2019_Combined Maths_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,10,S,I,II-04232020084311.pdf',
+            '2019_Combined Maths_Marking Scheme': 'https://www.doenets.lk/documents/evaluation-reports/new/10-S-Combined_Maths_Paper_I.pdf',
+            '2020_Combined Maths_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Combined%20Mathematics(S)_1623719789194.pdf',
+            '2020_Combined Maths_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Combined%20Mathematics(S)_1623719789194.pdf',
+            '2020_Combined Maths_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/10commaths-sinhala-new-old-1_1627989337015.pdf',
+            '2023_Combined Maths_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972578/2023_CM_Marking_compressed.pdf',
+            '2024_Combined Maths_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/10%20S-10272025191109_1761585026351.pdf',
+            '2024_Combined Maths_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/10%20S-10272025191109_1761585026351.pdf',
+            '2024_Combined Maths_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972476/2024_CM_Marking_compressed.pdf',
+            '2025_Combined Maths_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-10SI_1779710994809.pdf',
+            '2025_Combined Maths_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-10SI_1779710994809.pdf',
+            // --- G.C.E. A/L Chemistry (2015 - 2026) ---
+            '2015_Chemistry_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,02,SING,I,II-01172020220545.pdf',
+            '2015_Chemistry_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,02,SING,I,II-01172020220545.pdf',
+            '2015_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971650/2015_Chemistry_Marking.pdf',
+            '2016_Chemistry_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,02,S,1,2,-10212019213345.pdf',
+            '2016_Chemistry_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,02,S,1,2,-10212019213345.pdf',
+            '2016_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972102/2016_Chemistry_Marking.pdf',
+            '2017_Chemistry_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/02SINGHALA0102-09262019180605.pdf',
+            '2017_Chemistry_Essay Paper': 'https://www.doenets.lk/documents/past-papers/02SINGHALA0102-09262019180605.pdf',
+            '2017_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972181/2017_Chemistry_Marking.pdf',
+            '2018_Chemistry_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/02Sinhala0102.pdf',
+            '2018_Chemistry_Essay Paper': 'https://www.doenets.lk/documents/past-papers/02Sinhala0102.pdf',
+            '2018_Chemistry_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/02-Chemestry-2018_1599129325211.pdf',
+            '2019_Chemistry_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019-NEW-AL-02-S-I,II-04202020132953.pdf',
+            '2019_Chemistry_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019-NEW-AL-02-S-I,II-04202020132953.pdf',
+            '2019_Chemistry_Marking Scheme': 'https://www.doenets.lk/documents/evaluation-reports/new/02-S-Chemistry.pdf',
+            '2020_Chemistry_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Chemistry(S)_1623612528446.pdf',
+            '2020_Chemistry_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Chemistry(S)_1623612528446.pdf',
+            '2020_Chemistry_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/2%20-%20chemistry%20sinhala%20new-06102021124553_1627902748926.pdf',
+            '2021_Chemistry_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570225/2021-AL-Chemistry-Past-Paper-Sinhala-Medium_2.pdf',
+            '2021_Chemistry_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570225/2021-AL-Chemistry-Past-Paper-Sinhala-Medium_2.pdf',
+            '2021_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570431/2021-AL-Chemistry-Marking-Scheme-Sinhala-Medium_compressed.pdf',
+            '2022_Chemistry_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570914/GCE-Advanced-Level-2022-Chemistry-Sinhala-Medium-Paper_2__compressed.pdf',
+            '2022_Chemistry_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570914/GCE-Advanced-Level-2022-Chemistry-Sinhala-Medium-Paper_2__compressed.pdf',
+            '2022_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788571047/20222023-AL-Chemistry-Marking-Scheme-Sinhala-Medium_compressed.pdf',
+            '2023_Chemistry_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972013/2023AL_Chemistry_compressed.pdf',
+            '2023_Chemistry_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792972013/2023AL_Chemistry_compressed.pdf',
+            '2023_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1789000815/2023_G.C.E_A_L_Chemistry_Full_Marking_Scheme_Sinhala_Medium__compressed.pdf',
+            '2024_Chemistry_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/02-S-i,ii-10212025225329_1761553782211.pdf',
+            '2024_Chemistry_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/02-S-i,ii-10212025225329_1761553782211.pdf',
+            '2024_Chemistry_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971896/2024_Chemistry_Marking_compressed.pdf',
+            '2025_Chemistry_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-02SII_1779704154596.pdf',
+            '2025_Chemistry_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-02SII_1779704154596.pdf',
+            // --- G.C.E. A/L Biology (2015 - 2026) ---
+            '2015_Biology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,09,SING,I,II-01172020220725.pdf',
+            '2015_Biology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,09,SING,I,II-01172020220725.pdf',
+            '2016_Biology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,09,S,1,2,-10212019214241.pdf',
+            '2016_Biology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,09,S,1,2,-10212019214241.pdf',
+            '2017_Biology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/09SINGHALA0102-09262019181812.pdf',
+            '2017_Biology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/09SINGHALA0102-09262019181812.pdf',
+            '2018_Biology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/09SINHALA0102.pdf',
+            '2018_Biology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/09SINHALA0102.pdf',
+            '2018_Biology_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/09-Biology-Sinhala-2018_1599130211625.pdf',
+            '2019_Biology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,09,S,I,II-04232020084130.pdf',
+            '2019_Biology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,09,S,I,II-04232020084130.pdf',
+            '2019_Biology_Marking Scheme': 'https://www.doenets.lk/documents/evaluation-reports/new/09-S-Biology.pdf',
+            '2020_Biology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Biology(S)_1623611117461.pdf',
+            '2020_Biology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Biology(S)_1623611117461.pdf',
+            '2020_Biology_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/9-biology-sinhala-new_1627989014307.pdf',
+            '2021_Biology_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788997479/2021-AL-Biology-Past-Paper-Sinhala-Medium.pdf_compressed.pdf',
+            '2021_Biology_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788997479/2021-AL-Biology-Past-Paper-Sinhala-Medium.pdf_compressed.pdf',
+            '2021_Biology_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788998163/2021-AL-Biology-Marking-Scheme-Sinhala-Medium_1.pdf',
+            '2022_Biology_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788657093/2022AL_Biology_1.pdf',
+            '2022_Biology_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788657093/2022AL_Biology_1.pdf',
+            '2023_Biology_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788657784/2023AL_Biology_compressed.pdf',
+            '2023_Biology_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788657784/2023AL_Biology_compressed.pdf',
+            '2024_Biology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/09%20S-10272025190738_1761584915988.pdf',
+            '2024_Biology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/09%20S-10272025190738_1761584915988.pdf',
+            '2025_Biology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-09SII_1779710723901.pdf',
+            '2025_Biology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-09SII_1779710723901.pdf',
+            // --- G.C.E. A/L Agriculture (2015 - 2026) ---
+            '2015_Agriculture_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,08,SING,I,II-01172020220637.pdf',
+            '2015_Agriculture_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,08,SING,I,II-01172020220637.pdf',
+            '2016_Agriculture_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,08,S,1,2,-10212019214009.pdf',
+            '2016_Agriculture_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,08,S,1,2,-10212019214009.pdf',
+            '2017_Agriculture_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/08singhalaH0102-09262019181445.pdf',
+            '2017_Agriculture_Essay Paper': 'https://www.doenets.lk/documents/past-papers/08singhalaH0102-09262019181445.pdf',
+            '2018_Agriculture_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/08Sinhala0102.pdf',
+            '2018_Agriculture_Essay Paper': 'https://www.doenets.lk/documents/past-papers/08Sinhala0102.pdf',
+            '2018_Agriculture_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/08-Agriscience-2018_1599129907959.pdf',
+            '2019_Agriculture_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019(AL-OLD)08,S,I,II-02272020193502.pdf',
+            '2019_Agriculture_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019(AL-OLD)08,S,I,II-02272020193502.pdf',
+            '2019_Agriculture_Marking Scheme': 'https://www.doenets.lk/documents/evaluation-reports/new/08-S-Agricultrual.pdf',
+            '2020_Agriculture_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Agricultural%20Science(S)_1623610321235.pdf',
+            '2020_Agriculture_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Agricultural%20Science(S)_1623610321235.pdf',
+            '2020_Agriculture_Marking Scheme': 'https://www.doenets.lk/images/resources/EVRE/8%20-%20agri%20sinhala%20new-06102021123543_1627903267847.pdf',
+            '2024_Agriculture_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/08%20S-10272025190506_1761584743557.pdf',
+            '2024_Agriculture_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/08%20S-10272025190506_1761584743557.pdf',
+            '2025_Agriculture_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-08SII_1779704985807.pdf',
+            '2025_Agriculture_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-08SII_1779704985807.pdf',
+            // --- G.C.E. A/L Accounting (2015 - 2026) ---
+            '2015_Accounting_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,33,S,I,II-02032020195740.pdf',
+            '2015_Accounting_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,33,S,I,II-02032020195740.pdf',
+            '2016_Accounting_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016,AL,33,S,1,2-10242019213216.pdf',
+            '2016_Accounting_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016,AL,33,S,1,2-10242019213216.pdf',
+            '2017_Accounting_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/33singhala0102-09262019204352.pdf',
+            '2017_Accounting_Essay Paper': 'https://www.doenets.lk/documents/past-papers/33singhala0102-09262019204352.pdf',
+            '2018_Accounting_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/33sinhala0102.pdf',
+            '2018_Accounting_Essay Paper': 'https://www.doenets.lk/documents/past-papers/33sinhala0102.pdf',
+            // --- G.C.E. A/L Business Studies (2015 - 2026) ---
+            '2015_Business Studies_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,32,S,I,II-01172020222709.pdf',
+            '2015_Business Studies_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,32,S,I,II-01172020222709.pdf',
+            '2017_Business Studies_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/32singhala0102-09262019204139.pdf',
+            '2017_Business Studies_Essay Paper': 'https://www.doenets.lk/documents/past-papers/32singhala0102-09262019204139.pdf',
+            '2018_Business Studies_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/32sinhala0102.pdf',
+            '2018_Business Studies_Essay Paper': 'https://www.doenets.lk/documents/past-papers/32sinhala0102.pdf',
+            '2019_Business Studies_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,NEW,AL,32,S,I,II-04242020160738.pdf',
+            '2019_Business Studies_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,NEW,AL,32,S,I,II-04242020160738.pdf',
+            '2020_Business Studies_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Business%20Studies(S)_1623612232683.pdf',
+            '2020_Business Studies_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Business%20Studies(S)_1623612232683.pdf',
+            '2025_Business Studies_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-32SI_1781237703149.pdf',
+            '2025_Business Studies_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-32SI_1781237703149.pdf',
+            // --- G.C.E. A/L Economics (2015 - 2026) ---
+            '2015_Economics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,21,S,I,II-01222020195659.pdf',
+            '2015_Economics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,21,S,I,II-01222020195659.pdf',
+            '2016_Economics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,21,S,1,2-10242019194724.pdf',
+            '2016_Economics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,21,S,1,2-10242019194724.pdf',
+            '2017_Economics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/21singhala0102-09262019193055.pdf',
+            '2017_Economics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/21singhala0102-09262019193055.pdf',
+            '2018_Economics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/21sinhala0102.pdf',
+            '2018_Economics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/21sinhala0102.pdf',
+            '2019_Economics_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,21,S,I,II-04232020110627.pdf',
+            '2019_Economics_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,21,S,I,II-04232020110627.pdf',
+            '2020_Economics_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Economics(S)_1623748829117.pdf',
+            '2020_Economics_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Economics(S)_1623748829117.pdf',
+            // --- G.C.E. A/L Engineering Technology (2015 - 2026) ---
+            '2015_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,65,S,I,II-01222020195407.pdf',
+            '2015_Engineering Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,65,S,I,II-01222020195407.pdf',
+            '2016_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/65sinhala0102-10232019210707.pdf',
+            '2016_Engineering Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/65sinhala0102-10232019210707.pdf',
+            '2017_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/65singhala0102-09262019213930.pdf',
+            '2017_Engineering Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/65singhala0102-09262019213930.pdf',
+            '2018_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/65Sinhala0102.pdf',
+            '2018_Engineering Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/65Sinhala0102.pdf',
+            '2019_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,65,S,I,II-04252020144624.pdf',
+            '2019_Engineering Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,65,S,I,II-04252020144624.pdf',
+            '2020_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Engineering%20Technology(S)_1624893872912.pdf',
+            '2020_Engineering Technology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/GCE(AL)%20-%202020%20August%20(New)%20-%20Engineering%20Technology(S)_1624893872912.pdf',
+            '2025_Engineering Technology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-65SI_1781666761443.pdf',
+            '2025_Engineering Technology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-65SI_1781666761443.pdf',
+            // --- G.C.E. A/L Bio Systems Technology (2015 - 2026) ---
+            '2015_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,66,S,I,II-01222020210028.pdf',
+            '2015_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,66,S,I,II-01222020210028.pdf',
+            '2016_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/66sinhala0102-10232019211054.pdf',
+            '2016_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/66sinhala0102-10232019211054.pdf',
+            '2017_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/66singhala0102-09262019215145.pdf',
+            '2017_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/66singhala0102-09262019215145.pdf',
+            '2018_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/66Sinhala0102.pdf',
+            '2018_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/66Sinhala0102.pdf',
+            '2019_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,66,S,I,II-04252020145109.pdf',
+            '2019_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,66,S,I,II-04252020145109.pdf',
+            '2025_Bio Systems Technology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-66SI_1781666939029.pdf',
+            '2025_Bio Systems Technology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-66SI_1781666939029.pdf',
+            // --- G.C.E. A/L Science for Technology (2015 - 2026) ---
+            '2015_Science for Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,67,S,I,II-01222020210143.pdf',
+            '2015_Science for Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,67,S,I,II-01222020210143.pdf',
+            '2016_Science for Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/67sinhala0102-10232019211322.pdf',
+            '2016_Science for Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/67sinhala0102-10232019211322.pdf',
+            '2017_Science for Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/67singhala0102-09262019214400.pdf',
+            '2017_Science for Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/67singhala0102-09262019214400.pdf',
+            '2018_Science for Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/67Sinhala0102.pdf',
+            '2018_Science for Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/67Sinhala0102.pdf',
+            '2019_Science for Technology_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,67,S,I,II-04252020145148.pdf',
+            '2019_Science for Technology_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,67,S,I,II-04252020145148.pdf',
+            '2025_Science for Technology_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-67SI_1781667124784.pdf',
+            '2025_Science for Technology_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-67SI_1781667124784.pdf',
+            // --- G.C.E. A/L Sinhala (2015 - 2026) ---
+            '2015_Sinhala_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,71,S,I,II-01222020215101.pdf',
+            '2015_Sinhala_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015-AL,71,S,I,II-01222020215101.pdf',
+            '2016_Sinhala_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/71sinhala0102-10232019205606.pdf',
+            '2016_Sinhala_Essay Paper': 'https://www.doenets.lk/documents/past-papers/71sinhala0102-10232019205606.pdf',
+            '2017_Sinhala_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/71singhala0102-09262019214752.pdf',
+            '2017_Sinhala_Essay Paper': 'https://www.doenets.lk/documents/past-papers/71singhala0102-09262019214752.pdf',
+            '2019_Sinhala_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,71,S,I,II-04252020145559.pdf',
+            '2019_Sinhala_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,71,S,I,II-04252020145559.pdf',
+            '2025_Sinhala_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-71SI_1781667317781.pdf',
+            '2025_Sinhala_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025-71SI_1781667317781.pdf',
+            // --- G.C.E. A/L Political Science (2015 - 2026) ---
+            '2015_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2015,23,S,I,II-01172020221355.pdf',
+            '2015_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2015,23,S,I,II-01172020221355.pdf',
+            '2016_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,23,S,1,2-10242019195136.pdf',
+            '2016_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,23,S,1,2-10242019195136.pdf',
+            '2017_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/23singhala0102-09262019193735.pdf',
+            '2017_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/23singhala0102-09262019193735.pdf',
+            '2018_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/23-sinhala0102.pdf',
+            '2018_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/23-sinhala0102.pdf',
+            '2019_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,23,S,I,II-04232020110958.pdf',
+            '2019_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,23,S,I,II-04232020110958.pdf',
             
             // A/L Grade 12 & 13 Examples
             '2023_Physics_Grade 12_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_G12_PROV_WP_ID/view?usp=sharing',
@@ -187,10 +451,132 @@
             '2023_Science (විද්‍යාව)_Grade 10_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_OL_G10_PROV_ID/view?usp=sharing',
             '2023_Science (විද්‍යාව)_Grade 10_School_1st Term_Royal College': 'https://drive.google.com/file/d/YOUR_OL_G10_SCHOOL_ID/view?usp=sharing',
 
-            '2023_Science (විද්‍යාව)_MCQ Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MCQ_ID/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Essay Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_ESSAY_ID/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Marking Scheme': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MARKING_ID/view?usp=sharing',
-            '2023_Maths (ගණිතය)_MCQ Paper': 'https://drive.google.com/file/d/YOUR_OL_MATHS_MCQ_ID/view?usp=sharing',
+            // --- G.C.E. O/L Maths (ගණිතය) (2015 - 2026) ---
+            '2015_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/32S0102-12102019184244.pdf',
+            '2015_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/32S0102-12102019184244.pdf',
+            '2016_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,32,S,I,II-11132019190015.pdf',
+            '2016_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,32,S,I,II-11132019190015.pdf',
+            '2017_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,32,S,12-10102019184018.pdf',
+            '2017_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,32,S,12-10102019184018.pdf',
+            '2018_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/32Sinhala0102-09092019184936.pdf',
+            '2018_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/32Sinhala0102-09092019184936.pdf',
+            '2019_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/mathamatics-32,S,i,ii.pdf',
+            '2019_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/mathamatics-32,S,i,ii.pdf',
+            '2020_Maths (ගණිතය)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788569962/2020_OL_Maths_SM_compressed.pdf',
+            '2020_Maths (ගණිතය)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788569962/2020_OL_Maths_SM_compressed.pdf',
+            '2020_Maths (ගණිතය)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788570044/2020_OL_Maths_SM_Answer_compressed.pdf',
+            '2021_Maths (ගණිතය)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788569517/2021_OL_Maths_SM_compressed.pdf',
+            '2021_Maths (ගණිතය)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788569517/2021_OL_Maths_SM_compressed.pdf',
+            '2021_Maths (ගණිතය)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1788569806/2021_OL_Maths_SM_Answer_compressed.pdf',
+            '2022_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/32%20%20S%20%20I%20II-07292024133801_1725361451364.pdf',
+            '2022_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/32%20%20S%20%20I%20II-07292024133801_1725361451364.pdf',
+            '2023_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/32%20S%201,11-06122025100908_1769678269931.pdf',
+            '2023_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/32%20S%201,11-06122025100908_1769678269931.pdf',
+            '2024_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/32S12-02022026122824_1770027533104.pdf',
+            '2024_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/32S12-02022026122824_1770027533104.pdf',
+            '2025_Maths (ගණිතය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)32SI,II_compressed_1787294314637.pdf',
+            '2025_Maths (ගණිතය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)32SI,II_compressed_1787294314637.pdf',
+            // --- G.C.E. O/L Science (විද්‍යාව) (2015 - 2026) ---
+            '2015_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/34S0102-12102019191742.pdf',
+            '2015_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/34S0102-12102019191742.pdf',
+            '2016_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,34,S,I,II-11132019190359.pdf',
+            '2016_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,34,S,I,II-11132019190359.pdf',
+            '2017_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,34,S,12-10102019184432.pdf',
+            '2017_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,34,S,12-10102019184432.pdf',
+            '2018_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/34Singhala0102-09092019185608.pdf',
+            '2018_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/34Singhala0102-09092019185608.pdf',
+            '2021_Science (විද්‍යාව)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970768/2021_OL_Science_SM.pdf',
+            '2021_Science (විද්‍යාව)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970768/2021_OL_Science_SM.pdf',
+            '2021_Science (විද්‍යාව)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970817/2021_OL_Science_SM_Answer.pdf',
+            '2022_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/34%20S%20%20I%20II-07292024134248_1725364060957.pdf',
+            '2022_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/34%20S%20%20I%20II-07292024134248_1725364060957.pdf',
+            '2023_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/34%20S%201,11-06122025095302_1769678454729.pdf',
+            '2023_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/34%20S%201,11-06122025095302_1769678454729.pdf',
+            '2024_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/34S12-02022026122922_1770027765577.pdf',
+            '2024_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/34S12-02022026122922_1770027765577.pdf',
+            '2025_Science (විද්‍යාව)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)34SI,II_compressed_1787294868064.pdf',
+            '2025_Science (විද්‍යාව)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)34SI,II_compressed_1787294868064.pdf',
+            // --- G.C.E. O/L Sinhala (සිංහල) (2015 - 2026) ---
+            '2015_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/21S0102-12102019183831.pdf',
+            '2015_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/21S0102-12102019183831.pdf',
+            '2016_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,21,S,I,II-11132019185802.pdf',
+            '2016_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,21,S,I,II-11132019185802.pdf',
+            '2017_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,21,S,12-10102019184740.pdf',
+            '2017_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,21,S,12-10102019184740.pdf',
+            '2018_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/21sinhala0102-09092019184546.pdf',
+            '2018_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/21sinhala0102-09092019184546.pdf',
+            '2019_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/singhala%20language%20and%20literature-21,S,i,ii.pdf',
+            '2019_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/singhala%20language%20and%20literature-21,S,i,ii.pdf',
+            '2022_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/21%20%20S%20I%20II-07292024133524_1725359409618.pdf',
+            '2022_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/21%20%20S%20I%20II-07292024133524_1725359409618.pdf',
+            '2023_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/21%20S%201,%2011-06122025152720_1769678806203.pdf',
+            '2023_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/21%20S%201,%2011-06122025152720_1769678806203.pdf',
+            '2024_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/64-S-I,II-07212025212034_1769669267282.pdf',
+            '2024_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/64-S-I,II-07212025212034_1769669267282.pdf',
+            '2025_Sinhala (සිංහල)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)21SI,II_compressed_1787293478365.pdf',
+            '2025_Sinhala (සිංහල)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)21SI,II_compressed_1787293478365.pdf',
+            // --- G.C.E. O/L History (ඉතිහාසය) (2015 - 2026) ---
+            '2015_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/33S0102-12102019184658.pdf',
+            '2015_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/33S0102-12102019184658.pdf',
+            '2016_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,33,S,I,II-11132019190219.pdf',
+            '2016_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,33,S,I,II-11132019190219.pdf',
+            '2017_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,33,S,12-10102019184309.pdf',
+            '2017_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,33,S,12-10102019184309.pdf',
+            '2018_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/33Sinhala0102-09092019185238.pdf',
+            '2018_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/33Sinhala0102-09092019185238.pdf',
+            '2019_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/history-33,S,i,ii.pdf',
+            '2019_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/history-33,S,i,ii.pdf',
+            '2022_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/33%20%20S%20I%20II-07292024133945_1725363379655.pdf',
+            '2022_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/33%20%20S%20I%20II-07292024133945_1725363379655.pdf',
+            '2022_History (ඉතිහාසය)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971006/2022_OL_History_SM_Answer.pdf',
+            '2023_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/33-S-I-07212025211404_1769668920915.pdf',
+            '2023_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/33-S-I-07212025211404_1769668920915.pdf',
+            '2024_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/33-S-I-07212025211404_1769668920915.pdf',
+            '2024_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/33-S-I-07212025211404_1769668920915.pdf',
+            '2025_History (ඉතිහාසය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)33SI,II_compressed_1787294586996.pdf',
+            '2025_History (ඉතිහාසය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)33SI,II_compressed_1787294586996.pdf',
+            // --- G.C.E. O/L English (ඉංග්‍රීසි) (2015 - 2026) ---
+            '2015_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/31E0102-12102019184127.pdf',
+            '2015_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/31E0102-12102019184127.pdf',
+            '2016_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,31,E,I,II-11132019185922.pdf',
+            '2016_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2016%20NEW,31,E,I,II-11132019185922.pdf',
+            '2017_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,31,E,1,2-10102019183917.pdf',
+            '2017_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,31,E,1,2-10102019183917.pdf',
+            '2018_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/31English0102-09092019184803.pdf',
+            '2018_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/31English0102-09092019184803.pdf',
+            '2019_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/ENGLISH-31-E,I,II_1593225391025.pdf',
+            '2019_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/ENGLISH-31-E,I,II_1593225391025.pdf',
+            '2021_English (ඉංග්‍රීසි)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970609/2021_OL_English_Answer.pdf',
+            '2022_English (ඉංග්‍රීසි)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970882/2022_OL_English.pdf',
+            '2022_English (ඉංග්‍රීසි)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970882/2022_OL_English.pdf',
+            '2022_English (ඉංග්‍රීසි)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970964/2022_OL_English_Answer.pdf',
+            '2023_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/31%20E%201,11-06122025101055_1769678104512.pdf',
+            '2023_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/31%20E%201,11-06122025101055_1769678104512.pdf',
+            '2024_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/31-e_1770277358360.pdf',
+            '2024_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/31-e_1770277358360.pdf',
+            '2025_English (ඉංග්‍රීසි)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)31EI,II_compressed_1787294096402.pdf',
+            '2025_English (ඉංග්‍රීසි)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/2025(2026)31EI,II_compressed_1787294096402.pdf',
+            // --- G.C.E. O/L ICT (තොරතුරු හා සන්නිවේදනය) (2015 - 2026) ---
+            '2015_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/80S0102-12102019195402.pdf',
+            '2015_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/80S0102-12102019195402.pdf',
+            '2016_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/AL,20,S,1,2-10242019194446.pdf',
+            '2016_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/AL,20,S,1,2-10242019194446.pdf',
+            '2017_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/NEW,80,S,1,2-10102019191309.pdf',
+            '2017_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/NEW,80,S,1,2-10102019191309.pdf',
+            '2018_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/80Sinhala0102-09092019193822.pdf',
+            '2018_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/documents/past-papers/80Sinhala0102-09092019193822.pdf',
+            '2019_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/ICT-80-s-1-11_1619151064955.pdf',
+            '2019_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/ICT-80-s-1-11_1619151064955.pdf',
+            '2021_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970658/2021_OL_ICT_SM.pdf',
+            '2021_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970658/2021_OL_ICT_SM.pdf',
+            '2021_ICT (තොරතුරු හා සන්නිවේදනය)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792970725/2021_OL_ICT_SM_Answer.pdf',
+            '2022_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971051/2022_OL_ICT_SM.pdf',
+            '2022_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971051/2022_OL_ICT_SM.pdf',
+            '2022_ICT (තොරතුරු හා සන්නිවේදනය)_Marking Scheme': 'https://res.cloudinary.com/dnchuxok/image/upload/v1792971104/2022_OL_ICT_SM_Answer.pdf',
+            '2023_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/80-S-I,II-07212025212812_1769671069221.pdf',
+            '2023_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/80-S-I,II-07212025212812_1769671069221.pdf',
+            '2024_ICT (තොරතුරු හා සන්නිවේදනය)_MCQ Paper': 'https://www.doenets.lk/images/resources/PAPA/80%20S12-02022026130642_1770046097085.pdf',
+            '2024_ICT (තොරතුරු හා සන්නිවේදනය)_Essay Paper': 'https://www.doenets.lk/images/resources/PAPA/80%20S12-02022026130642_1770046097085.pdf',
 
             // --- G.C.E. O/L PAPERS ---
             '2016_Maths (ගණිතය)_School_1st Term_Monaragala Royal College': 'https://drive.google.com/file/d/1CmRyecbYEo0heo31Mzo9FGdNjFJXT_kB/view?usp=sharing',
@@ -892,15 +1278,21 @@
             const overlay = document.getElementById('ad-modal-overlay');
             if (!overlay) return;
 
+            // දැනට තෝරාගෙන ඇති විෂය (උදා: Physics, Political Science ආදී වශයෙන්) ලබා ගැනීම
+            const currentSubject = currentStateData.subject || 'default';
+            
+            // අදාළ විෂයට අදාළ දැන්වීම් ලැයිස්තුව ලබා ගැනීම, නැතහොත් 'default' ලැයිස්තුව පෙන්වීම
+            let adsList = subjectAdvertisements[currentSubject] || subjectAdvertisements['default'];
+
             let selectedAd = {
                 videoUrl: 'https://www.youtube.com/watch?v=PIrLGBgoz2U',
-                youtubeChannelUrl: 'https://www.youtube.com/@NGP6Physics',
+                youtubeChannelUrl: 'https://www.youtube.com/@NGP6Official',
                 whatsappNumber: ''
             };
 
-            if (advertisements && advertisements.length > 0) {
-                const randomIndex = Math.floor(Math.random() * advertisements.length);
-                selectedAd = advertisements[randomIndex];
+            if (adsList && adsList.length > 0) {
+                const randomIndex = Math.floor(Math.random() * adsList.length);
+                selectedAd = adsList[randomIndex];
             }
 
             currentActiveAd = selectedAd;
@@ -911,7 +1303,6 @@
             let mediaHTML = '';
 
             if (videoId) {
-                // YouTube Short එකක් නම් සිරස් සහ පූර්ණ තිරයට ආසන්න ප්‍රමාණයකින් (max-h-[360px] සහිතව) පෙන්වීම
                 const playerContainerClass = isShorts 
                     ? "relative w-full max-w-[240px] mx-auto aspect-[9/16] rounded-xl overflow-hidden bg-black shadow-lg" 
                     : "relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-lg";
@@ -938,7 +1329,6 @@
                 `;
             }
 
-            // WhatsApp බොත්තම පෙන්වීම සකස් කිරීම
             let whatsappButtonHTML = '';
             if (selectedAd.whatsappNumber && selectedAd.whatsappNumber.trim() !== '') {
                 whatsappButtonHTML = `
@@ -949,7 +1339,6 @@
                 `;
             }
 
-            // YouTube Channel Button එක
             let youtubeButtonHTML = '';
             if (selectedAd.youtubeChannelUrl && selectedAd.youtubeChannelUrl.trim() !== '') {
                 youtubeButtonHTML = `
@@ -972,7 +1361,6 @@
 
                     ${mediaHTML}
 
-                    <!-- වැඩිදුර තොරතුරු සහ විමසීම් සඳහා සහ බොත්තම් -->
                     <div class="space-y-2 pt-1 border-t border-slate-800/80">
                         <p class="text-[11px] font-medium text-slate-400 text-center">මේ පිලිබඳ වැඩිදුර තොරතුරු සහ විමසීම් සඳහා,</p>
                         <div class="flex items-center gap-2">
