@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="si" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGP6 | A/L & O/L Papers Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0a0f1d',
+                            card: '#111827',
+                            accent: '#06b6d4',
+                            blue: '#3b82f6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter & Noto Sans Sinhala -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
+            background-color: #070a12;
+            color: #f8fafc;
+        }
+
+        .bg-glow {
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+        }
+
+        .ngp6-glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-animation {
+            animation: ngp6FadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes ngp6FadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .glow-button-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+            box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.35);
+            transition: all 0.25s ease;
+        }
+        .glow-button-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #0e7490 100%);
+            box-shadow: 0 6px 24px 0px rgba(6, 182, 212, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .glow-button-emerald {
+            background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+            box-shadow: 0 4px 20px -2px rgba(13, 148, 136, 0.35);
+            transition: all 0.25s ease;
+        }
+        .glow-button-emerald:hover {
+            background: linear-gradient(135deg, #047857 0%, #0f766e 100%);
+            box-shadow: 0 6px 24px 0px rgba(13, 148, 136, 0.5);
+            transform: translateY(-1px);
+        }
+
+        @keyframes adFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .ad-modal-anim {
+            animation: adFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-glow flex flex-col items-center justify-center p-3 sm:p-6 text-slate-200 relative overflow-x-hidden">
+
+    <!-- Background glowing ambient lights -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full filter blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-[120px] pointer-events-none"></div>
+
+    <header class="mb-6 text-center z-10 max-w-md w-full">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-400 text-xs font-semibold shadow-lg shadow-cyan-500/10">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            NGP6 OFFICIAL PORTAL
+        </div>
+    </header>
+
+    <div id="app-card" class="card-animation ngp6-glass w-full max-w-md rounded-2xl shadow-2xl shadow-cyan-950/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 min-h-[520px] z-10 relative">
+        
+        <!-- Dynamic Content injected here -->
+        <div id="card-content" class="w-full my-auto"></div>
+
+        <!-- Static Card Footer -->
+        <div id="card-footer" class="mt-8 pt-4 border-t border-slate-800/80 text-center text-xs text-slate-500 space-y-2.5">
+            <div class="flex justify-center space-x-3 text-slate-400 font-medium">
+                <a href="https://ngp6.com" target="_blank" class="hover:underline hover:text-cyan-400 transition-colors">About NGP6</a>
+                <span>•</span>
+                <a href="#" class="hover:underline hover:text-cyan-400 transition-colors">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:underline hover:text-cyan-400 transition-colors">Contact Us</a>
+            </div>
+            <p class="text-[11px] text-slate-500">© 2026 <span class="text-cyan-400 font-semibold">NGP6</span> - All Rights Reserved</p>
+        </div>
+    </div>
+
+    <!-- Advertisement Modal Overlay (Popup Container) -->
+    <div id="ad-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md"></div>
+
+    <!-- Application Logic Script -->
+    <script>
+        /* 
+        ========================================================================
+        📢 [1] ADVERTISEMENT LINKS CONFIGURATION (දැන්වීම් ලින්ක්ස් මෙතැනට එකතු කරන්න)
+        ========================================================================
+        */
+        const advertisementLinks = [
+            'https://www.youtube.com/post/Ugkxamo36L0nENO7rfCm-mg7ROfzcZSlQL5I', 
+            'https://www.youtube.com/post/UgkxJYWSjUmgxDBWSMmmq6atVd3SR0RiR0ZP',                
+            'https://www.youtube.com/post/Ugkx3yOQJ0RIDA-ZIqf4Y4ygmnVPNPrLJssE', 
+        ];
+
+        /* 
+        ========================================================================
+        📌 GOOGLE DRIVE LINKS එකතු කිරීමේ උපදෙස් (INSTRUCTIONS):
+        ========================================================================
+        */
+        const paperLinks = {
+            '2023_Physics_MCQ Paper': 'https://drive.google.com/file/d/YOUR_2023_PHYSICS_MCQ_ID/view?usp=sharing',
+            '2023_Physics_Essay Paper': 'https://drive.google.com/file/d/YOUR_2023_ESSAY_FILE_ID/view?usp=sharing',
+            '2023_Physics_Marking Scheme': 'https://drive.google.com/file/d/YOUR_2023_MARKING_FILE_ID/view?usp=sharing',
+            '2023_Physics_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_PROV_1ST_WP_ID/view?usp=sharing',
+            '2023_Physics_Provincial_1st Term_North Western': 'https://drive.google.com/file/d/YOUR_PROV_1ST_NW_ID/view?usp=sharing',
+            '2023_Physics_Provincial_2nd Term_Western Province': 'https://drive.google.com/file/d/YOUR_PROV_2ND_WP_ID/view?usp=sharing',
+            '2023_Physics_School_1st Term_Royal College': 'https://drive.google.com/file/d/YOUR_SCHOOL_1ST_ROYAL_ID/view?usp=sharing',
+            '2023_Physics_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/YOUR_SCHOOL_1ST_NALANDA_ID/view?usp=sharing',
+            '2023_Physics_School_2nd Term_Royal College': 'https://drive.google.com/file/d/YOUR_SCHOOL_2ND_ROYAL_ID/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_MCQ Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MCQ_ID/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Essay Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_ESSAY_ID/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Marking Scheme': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MARKING_ID/view?usp=sharing',
+            '2023_Maths (ගණිතය)_MCQ Paper': 'https://drive.google.com/file/d/YOUR_OL_MATHS_MCQ_ID/view?usp=sharing',
+
+            // --- G.C.E. O/L MATHS PAPERS ---
+            '2016_Maths (ගණිතය)_School_1st Term_Monaragala Royal College': 'https://drive.google.com/file/d/1CmRyecbYEo0heo31Mzo9FGdNjFJXT_kB/view?usp=sharing',
+            '2018_Maths (ගණිතය)_Provincial_1st Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1FN_O3EZ2UgcN7fKc2IBCQ0XQ9kmO4fFn/view?usp=sharing',
+            '2018_Maths (ගණිතය)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1bY9kf2oJBrFuuPr-uRX1bZ6NRBr6GeV_/view?usp=sharing',
+            '2018_Maths (ගණිතය)_Provincial_2nd Term_Western Province': 'https://drive.google.com/file/d/1KCwSTlqkjadtZtNjHzVihdvNZBfnKZZp/view?usp=sharing',
+            '2018_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1D5u08VS7X8tp6p24a1kN2NUXlBMxXyYu/view?usp=sharing',
+            '2019_Maths (ගණිතය)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1eRg2yssNAEwYBMIY3kY50vw3JlWmQrf1/view?usp=sharing',
+            '2019_Maths (ගණිතය)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1OGunXvVAOIfnpfBsiwcKJsaYVggz_jmr/view?usp=sharing',
+            '2019_Maths (ගණිතය)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/166tp0J-jjzsSc6md1wJKRfNjwXukxwJs/view?usp=sharing',
+            '2019_Maths (ගණිතය)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/13CAY5Bux0utG4jbufUhIPWND_30jeztL/view?usp=sharing',
+            '2020_Maths (ගණිතය)_Provincial_1st Term_North Western Province': 'https://drive.google.com/file/d/1B_IAU2ealfy6GNc4o3Td70tQ-79pOAsA/view?usp=sharing',
+            '2020_Maths (ගණිතය)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1Nv_pJ9u2JmoNRLF-03DeihX0qQXIgMca/view?usp=sharing',
+            '2020_Maths (ගණිතය)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/13ehP7c0l5Ij2DWDcHD0TBpXFVd-dJ8Cn/view?usp=sharing',
+            '2020_Maths (ගණිතය)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1nqepLJw9cp4ZOD30FJ6Cj2VDKmVFfLdC/view?usp=sharing',
+            '2020_Maths (ගණිතය)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1OJ1V0DpDoEdFqPqZS4ETPTBgjMzD4Zm8/view?usp=sharing',
+            '2020_Maths (ගණිතය)_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/11bGxzpqje4B7i5bjZXQIS7VPAQdqG00x/view?usp=sharing',
+            '2021_Maths (ගණිතය)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1UYBSjp_YGADAg4JkcRenEJmPjfU5kXqc/view?usp=sharing',
+            '2021_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1cbgSKJfV-3yq_MbQPi0ygpYOqF1YcPvM/view?usp=sharing',
+            '2021_Maths (ගණිතය)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/11RnAf0jy-vjwSNnbmSbLZFCH2zg8rTvM/view?usp=sharing',
+            '2021_Maths (ගණිතය)_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1yGkJTHoUx-sFh70pr_NF8N8ow-hQkoWX/view?usp=sharing',
+            '2022_Maths (ගණිතය)_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=sharing',
+            '2022_Maths (ගණිතය)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1PfjYPVcMjaJAR6MpQXu1mmvU1oqdsH0m/view?usp=sharing',
+            '2022_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1K_i93xH0kCmG5wacVJ26VeD1R0IULjDl/view?usp=sharing',
+            '2022_Maths (ගණිතය)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1_xBNaKOJnXOFiMEUn4l7sbbPrAfJZ521/view?usp=sharing',
+            '2022_Maths (ගණිතය)_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1eCGcyuzcUmqdZIrRYqmJdRyGxyEPK9Fv/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/19vi2vDCNT2bgP37MMdNHFJIcmpV_8Zdh/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1VcDu4g4dGHKYqIxTf_bV4LhXqtYCtAUz/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1X3YhdNn1LeyteZah9hyeSGXB8m-0KW2v/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/17ba343cI_t3qE08p5ceRoNDJArKGxMD8/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/13ARzMPG23IyLRSEMLteX8PzP7IP8Jp1N/view?usp=sharing',
+            '2023_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1jsIQ2d7NK5Oj9S3G1Flow4DBlS3ZpyYo/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_1st Term_Central Province': 'https://drive.google.com/file/d/18eYVgdk1WV5qOQhsLEgTc1BHRTcczPrr/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_2nd Term_Central Province': 'https://drive.google.com/file/d/16cegAQmiO7WhiiQ7atBjzct-f4j10-EP/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1V6hq-ElxOjb_vSGTF6WG_0Rm3-GCbvaC/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/18Iqnzr_nY00CzhhI9ltNoVJWtmT40DsQ/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1Y628lL6-hGaTR6xgLAq8V4gWbu6Wiygn/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1pCV251QjvtyjnRzKMhk72KcF6SNsBpc4/view?usp=sharing',
+            '2024_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1Wq9yeO9_69jbRiuaH4g77CzN1qFV_kPW/view?usp=sharing',
+            '2024_Maths (ගණිතය)_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1IVQzB-atWIq0BSSWtnFw8VaELY3BFlLd/view?usp=sharing',
+            '2024_Maths (ගණිතය)_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1Y-KtCxS-2WSx6AEgKP1NcL2liIO9kGGf/view?usp=sharing',
+            '2025_Maths (ගණිතය)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1wvv13JqIm2fRaqRO1CkkxZVJ_YmcEMKq/view?usp=sharing',
+            '2025_Maths (ගණිතය)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1Z1mupucMNULvlgKzf_tZbkk2AGMqO0Gc/view?usp=sharing',
+            '2025_Maths (ගණිතය)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1rtDCtfAu_fpUJZ6sfQNS6HUeZ0p-0GI6/view?usp=sharing',
+            '2025_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1pSWsh9AcOuG07bBXarvZnM5Yb52y4Nb1/view?usp=sharing',
+            '2025_Maths (ගණිතය)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1fLbzY_Z9Isf77xOnRqsS6l62uVwtyAVB/view?usp=sharing',
+            '2025_Maths (ගණිතය)_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1fLDEcfU-9UdS9orZmJSiPTCMGxI-DhYX/view?usp=sharing',
+
+            // --- G.C.E. O/L SCIENCE PAPERS ---
+            '2019_Science (විද්‍යාව)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/11R78roA9EVUE-hZ4einDlEJXvZKHSOoR/view?usp=sharing',
+            '2019_Science (විද්‍යාව)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1fwZyFEEQAMfIL5nwEDy6iccZh7puecnx/view?usp=sharing',
+            '2019_Science (විද්‍යාව)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/12wMLiLsAACEM8McSHp7ZHC7Vji9hiQml/view?usp=sharing',
+            '2019_Science (විද්‍යාව)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1oXG9JdSS0Ta-gUqRBk-NTup0uoPaYGLb/view?usp=sharing',
+            '2019_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1c7pSE5X-TipVmiGZHa6Cz1ohZ2NWl5MF/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_Provincial_1st Term_North Western Province': 'https://drive.google.com/file/d/1izVhyed94tGYtQoM93vHuaG_o4KaZVgx/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1TxZMvvytkDRB9KHRQJ64Bin7RstUR3gL/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1izhVN0kbE0igXfFeZPuYQ7iGNSfiGDfS/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1Qi3Kw--GbeYPlPJpuXg0wR60iyDK3KG6/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/1TxEof6a5e9SHsyu6Bnwg0V-VvY20w1Fs/view?usp=sharing',
+            '2020_Science (විද්‍යාව)_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1Xb0uFAkxpiT6XrbzT_Il9V4n1IUKMDcd/view?usp=sharing',
+            '2021_Science (විද්‍යාව)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1ad7q4fR9GAfVRZ7hvGOaqupvb1yY6NQz/view?usp=sharing',
+            '2021_Science (විද්‍යාව)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1_nde0exPsWSxjNZV7ZX9PNzZwFi125gT/view?usp=sharing',
+            '2021_Science (විද්‍යාව)_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1NMfS8samLhNPP2HStQ68nCkZwO2Dm3iF/view?usp=sharing',
+            '2022_Science (විද්‍යාව)_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1eqTBZQ15vdsrpfbyAT4DThhRIeuMDo2Q/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1HNNasa1V6AzkocTdyBdbKZ27PwkUNkBN/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1-rp_Rv0YqJbVL7IXXEqnlsdC9l1gWvyU/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1KGbz-QlFzbqOWZ9jyZWTqegjpCwe34YH/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1kUG1U6wppjfp1aIPD7Bd9Oin04QKDBGY/view?usp=sharing',
+            '2023_Science (විද්‍යාව)_School_1st Term_Bandaranayake College Gampaha': 'https://drive.google.com/file/d/1EE8UIsRYKjQX5dPQSUIv1Pur0cnP3UTL/view?usp=sharing',
+
+            // --- G.C.E. O/L ENGLISH PAPERS ---
+            '2018_English (ඉංග්‍රීසි)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/13-BdUCjerK_59S6dtIoJ4lG4qMn-aIt3/view?usp=sharing',
+            '2019_English (ඉංග්‍රීසි)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1ZMhbrG1i5pL_EyoRBk9Llv5FNiZefyDn/view?usp=sharing',
+            '2022_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1J92iN8WW8aCVgZEx2JoTBVYqEuMroaDt/view?usp=sharing',
+            '2023_English (ඉංග්‍රීසි)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/188f1Cd_gwYILP2TZPwahH7dJCAg9xI5N/view?usp=sharing',
+            '2023_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1bSRWnImVAN62gLpkPHYhrAngQiuNOhz6/view?usp=sharing',
+            '2023_English (ඉංග්‍රීසි)_School_1st Term_Jaffna Hindu College': 'https://drive.google.com/file/d/1m6e63WdN0cczFEYJ1fVog1AHSyrLtVkd/view?usp=sharing',
+            '2023_English (ඉංග්‍රීසි)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1YHwj6W40l_CMePJTd_lcIdTfW7ZkrmSA/view?usp=sharing',
+            '2023_English (ඉංග්‍රීසි)_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1_4CSfcA1LaA9bjAaOUspCquYxWlZJY_d/view?usp=sharing',
+            '2024_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1jm6Pyhy841B71GoQ_63k3xGwfvcWxZuu/view?usp=sharing',
+            '2024_English (ඉංග්‍රීසි)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1KlkWOhap_J-e_49lQsZBPBJt7wG_XHXM/view?usp=sharing',
+            '2025_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1iSMY7pQDTY_yOJn6qgSz-eDVd0PT1FdY/view?usp=sharing',
+
+            // --- G.C.E. O/L SINHALA PAPERS ---
+            '2019_Sinhala (සිංහල)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1JY5n6NuRmBj29T-uQgU2pTcD8M6L1yXV/view?usp=sharing',
+            '2019_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1XpvtvUZQqp9VlIhBBCY74MdhlqbfVtnp/view?usp=sharing',
+            '2022_Sinhala (සිංහල)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1PYV3RHjH-t9CLIosxMkEPb5pwvJ71N59/view?usp=sharing',
+            '2023_Sinhala (සිංහල)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/1hkbI-GW0a9HwsPr8Vyd7IH2OS0kyLUGC/view?usp=sharing',
+            '2023_Sinhala (සිංහල)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1oaL4yuswOrs6Zaz13C2kF1bqF5bfdeIh/view?usp=sharing',
+            '2024_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1-VlNSO9qaBsQPMtuteRmcQB-t3wqiGEk/view?usp=sharing',
+            '2024_Sinhala (සිංහල)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1bSnJtjAb0v5qzXESTGauvDI2Q4PesJLp/view?usp=sharing',
+            '2024_Sinhala (සිංහල)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1pq5JUd2jMYNWTsu-u6n2LSBdFD6iNtts/view?usp=sharing',
+            '2025_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1OvI-Uzgybu8FKPqmDcbk4hLU5Ds6wZ1L/view?usp=sharing',
+            '2025_Sinhala (සිංහල)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1Qsb5aQS84ZZkhmjVEaAsU2cLk60tlb_z/view?usp=sharing',
+
+            // --- G.C.E. O/L ICT PAPERS ---
+            '2024_ICT (තොරතුරු හා සන්නිවේදනය)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1qRK0-FUxBsnLlg726oOA77LQhVSK_HcD/view?usp=sharing',
+        };
+
+        // Navigation and Application State Management
+        let stateHistory = ['HOME'];
+        let currentStateData = {
+            exam: null,        
+            stream: null,      
+            streamTitle: '',   
+            subject: null,     
+            selectedYear: null 
+        };
+
+        const years = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
+
+        const alStreamSubjects = {
+            'Maths': [
+                { id: 'Combined Maths', name: 'සංයුක්ත ගණිතය | Combined Maths' },
+                { id: 'Higher Maths', name: 'උසස් ගණිතය | Higher Maths' },
+                { id: 'Physics', name: 'භෞතික විද්‍යාව | Physics' },
+                { id: 'Chemistry', name: 'රසායන විද්‍යාව | Chemistry' }
+            ],
+            'Science': [
+                { id: 'Physics', name: 'භෞතික විද්‍යාව | Physics' },
+                { id: 'Biology', name: 'ජීව විද්‍යාව | Biology' },
+                { id: 'Chemistry', name: 'රසායන විද්‍යාව | Chemistry' },
+                { id: 'Agriculture', name: 'කෘෂි විද්‍යාව | Agriculture' }
+            ],
+            'Arts': [
+                { id: 'Sinhala', name: 'සිංහල | Sinhala' },
+                { id: 'Political Science', name: 'දේශපාලන විද්‍යාව | Political Science' },
+                { id: 'Logic', name: 'තර්කශාස්ත්‍රය | Logic' },
+                { id: 'Economics', name: 'ආර්ථික විද්‍යාව | Economics' }
+            ],
+            'Commerce': [
+                { id: 'Accounting', name: 'ගිණුම්කරණය | Accounting' },
+                { id: 'Business Studies', name: 'ව්‍යාපාර අධ්‍යයනය | Business Studies' },
+                { id: 'Economics', name: 'ආර්ථික විද්‍යාව | Economics' }
+            ],
+            'Technology': [
+                { id: 'Engineering Technology', name: 'ඉංජිනේරු තාක්ෂණවේදය | Engineering Tech' },
+                { id: 'Bio Systems Technology', name: 'ජෛව පද්ධති තාක්ෂණවේදය | Bio Systems Tech' },
+                { id: 'Science for Technology', name: 'තාක්ෂණවේදය සඳහා විද්‍යාව | SFT' }
+            ]
+        };
+
+        const olSubjects = [
+            { id: 'Maths (ගණිතය)', name: 'ගණිතය (Maths)' },
+            { id: 'Science (විද්‍යාව)', name: 'විද්‍යාව (Science)' },
+            { id: 'Sinhala (සිංහල)', name: 'සිංහල (Sinhala)' },
+            { id: 'History (ඉතිහාසය)', name: 'ඉතිහාසය (History)' },
+            { id: 'English (ඉංග්‍රීසි)', name: 'ඉංග්‍රීසි (English)' },
+            { id: 'ICT (තොරතුරු හා සන්නිවේදනය)', name: 'තොරතුරු හා සන්නිවේදනය (ICT)' }
+        ];
+
+        function renderPaperButton(paperKey, buttonText, iconName, isPrimary = false) {
+            const link = paperLinks[paperKey];
+            if (!link || link === "#" || link.trim() === "" || link.includes("YOUR_")) {
+                return ''; 
+            }
+
+            let btnClasses = "w-full py-2.5 px-3 bg-slate-800/90 hover:bg-slate-700 hover:border-cyan-500/40 text-slate-200 font-medium text-xs rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]";
+            
+            if (isPrimary === 'teal') {
+                btnClasses = "w-full py-2.5 px-3 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-xl shadow-md shadow-teal-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]";
+            } else if (isPrimary === 'grid') {
+                btnClasses = "py-2.5 px-3 bg-teal-600/80 hover:bg-teal-500 text-white font-medium text-xs rounded-xl shadow-md shadow-teal-900/30 transition-all flex items-center justify-center gap-1.5 active:scale-[0.98] border border-teal-500/30";
+            }
+
+            return `
+                <button onclick="downloadPaper('${paperKey}')" class="${btnClasses}">
+                    <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i> ${buttonText}
+                </button>
+            `;
+        }
+
+        function renderTermSection(selectedYr, subjectName, categoryType, termName) {
+            let buttonsHTML = '';
+
+            const knownEntities = categoryType === 'Provincial' ? [
+                { key: 'Western Province', label: 'Western Province' },
+                { key: 'Central Province', label: 'Central Province' },
+                { key: 'Southern Province', label: 'Southern Province' },
+                { key: 'North Western Province', label: 'North Western Province' },
+                { key: 'North Western', label: 'North Western Province' },
+                { key: 'North Central Province', label: 'North Central Province' },
+                { key: 'Sabaragamuwa Province', label: 'Sabaragamuwa Province' },
+                { key: 'Eastern Province', label: 'Eastern Province' },
+                { key: 'Northern Province', label: 'Northern Province' },
+                { key: 'Uva Province', label: 'Uva Province' },
+                { key: 'Mathugama Zone', label: 'Mathugama Education Zone' }
+            ] : [
+                { key: 'Royal College Colombo', label: 'Royal College | Colombo 07' },
+                { key: 'Royal College', label: 'Royal College | Colombo' },
+                { key: 'Nalanda College', label: 'Nalanda College | Colombo' },
+                { key: 'Visakha Vidyalaya', label: 'Visakha Vidyalaya | Colombo 05' },
+                { key: 'Bandaranayake College Gampaha', label: 'Bandaranayake College | Gampaha' },
+                { key: 'Richmond College Galle', label: 'Richmond College | Galle' },
+                { key: 'Jaffna Hindu College', label: 'Jaffna Hindu College' },
+                { key: 'Monaragala Royal College', label: 'Monaragala Royal College' },
+                { key: 'Mathugama Zone', label: 'Mathugama Education Zone' },
+                { key: 'North Western Province', label: 'North Western Province' }
+            ];
+
+            const renderedKeys = new Set();
+
+            knownEntities.forEach(ent => {
+                const fullKey = `${selectedYr}_${subjectName}_${categoryType}_${termName}_${ent.key}`;
+                if (paperLinks[fullKey]) {
+                    buttonsHTML += renderPaperButton(fullKey, ent.label, 'download');
+                    renderedKeys.add(fullKey);
+                }
+            });
+
+            const prefix = `${selectedYr}_${subjectName}_${categoryType}_${termName}_`;
+            Object.keys(paperLinks).forEach(pk => {
+                if (pk.startsWith(prefix) && !renderedKeys.has(pk)) {
+                    const customName = pk.substring(prefix.length);
+                    buttonsHTML += renderPaperButton(pk, customName, 'download');
+                    renderedKeys.add(pk);
+                }
+            });
+
+            if (!buttonsHTML.trim()) {
+                return '';
+            }
+
+            return `
+                <div class="space-y-1.5 pl-2 border-l-2 border-cyan-500/30 my-2">
+                    <h4 class="text-[11px] font-bold text-cyan-300 uppercase tracking-wide">${termName}</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${buttonsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderScreen() {
+            const container = document.getElementById('card-content');
+            const cardElem = document.getElementById('app-card');
+            
+            cardElem.classList.remove('card-animation');
+            void cardElem.offsetWidth; 
+            cardElem.classList.add('card-animation');
+
+            const currentStep = stateHistory[stateHistory.length - 1];
+
+            switch(currentStep) {
+                case 'HOME':
+                    container.innerHTML = renderHome();
+                    break;
+                case 'AL_STREAMS':
+                    container.innerHTML = renderALStreams();
+                    break;
+                case 'OL_SUBJECTS':
+                    container.innerHTML = renderOLSubjects();
+                    break;
+                case 'AL_SUBJECTS':
+                    container.innerHTML = renderALSubjects();
+                    break;
+                case 'YEAR_SELECTION':
+                    container.innerHTML = renderYearSelection();
+                    break;
+                case 'PAPER_DETAILS':
+                    container.innerHTML = renderPaperDetails();
+                    break;
+                default:
+                    container.innerHTML = renderHome();
+            }
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        function renderHome() {
+            return `
+                <div class="text-center space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-1.5 tracking-tight">A/L & O/L Past Papers</h2>
+                        <p class="text-xs text-slate-400">ඔබට අවශ්‍ය විභාග මට්ටම තෝරන්න (Select Exam Level)</p>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <button onclick="navigateTo('AL_STREAMS')" 
+                            class="w-full py-4 px-5 glow-button-primary text-white font-semibold rounded-xl text-sm active:scale-[0.98] flex items-center justify-between group">
+                            <span class="flex items-center gap-2.5">
+                                <i data-lucide="award" class="w-5 h-5 text-cyan-300"></i>
+                                G.C.E. A/L (උසස් පෙළ)
+                            </span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-cyan-200 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <button onclick="navigateTo('OL_SUBJECTS')" 
+                            class="w-full py-4 px-5 glow-button-emerald text-white font-semibold rounded-xl text-sm active:scale-[0.98] flex items-center justify-between group">
+                            <span class="flex items-center gap-2.5">
+                                <i data-lucide="book-open" class="w-5 h-5 text-teal-200"></i>
+                                G.C.E. O/L (සාමාන්‍ය පෙළ)
+                            </span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-teal-200 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderALStreams() {
+            return `
+                <div class="text-center space-y-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">A/L විෂය ධාරාව තෝරන්න</h2>
+                        <span class="inline-block mt-1.5 px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs rounded-full font-medium">
+                            උසස් පෙළ විෂය කාණ්ඩයන් (A/L Streams)
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5 pt-2">
+                        <button onclick="selectALStream('Maths', 'ගණිතය (Maths)')" class="p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex flex-col items-center justify-center min-h-[58px] active:scale-[0.97] group">
+                            <span class="group-hover:text-cyan-400 transition-colors">ගණිතය (Maths)</span>
+                        </button>
+                        <button onclick="selectALStream('Science', 'විද්‍යාව (Science)')" class="p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex flex-col items-center justify-center min-h-[58px] active:scale-[0.97] group">
+                            <span class="group-hover:text-cyan-400 transition-colors">විද්‍යාව (Science)</span>
+                        </button>
+                        <button onclick="selectALStream('Arts', 'කලා (Arts)')" class="p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex flex-col items-center justify-center min-h-[58px] active:scale-[0.97] group">
+                            <span class="group-hover:text-cyan-400 transition-colors">කලා (Arts)</span>
+                        </button>
+                        <button onclick="selectALStream('Commerce', 'වාණිජ (Commerce)')" class="p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex flex-col items-center justify-center min-h-[58px] active:scale-[0.97] group">
+                            <span class="group-hover:text-cyan-400 transition-colors">වාණිජ (Commerce)</span>
+                        </button>
+                        <button onclick="selectALStream('Technology', 'තාක්ෂණවේදය (Technology)')" class="col-span-2 p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex flex-col items-center justify-center active:scale-[0.97] group">
+                            <span class="group-hover:text-cyan-400 transition-colors">තාක්ෂණවේදය (Technology)</span>
+                        </button>
+                    </div>
+
+                    ${renderNavigationButtons()}
+                </div>
+            `;
+        }
+
+        function renderOLSubjects() {
+            const subjectsHTML = olSubjects.map(sub => `
+                <button onclick="selectSubject('${sub.id}', 'YEAR_SELECTION')" class="p-3.5 bg-slate-800/60 hover:bg-slate-800 hover:border-teal-500/50 text-slate-200 hover:text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all flex items-center justify-center min-h-[54px] active:scale-[0.97] group">
+                    <span class="group-hover:text-teal-300 transition-colors">${sub.name}</span>
+                </button>
+            `).join('');
+
+            return `
+                <div class="text-center space-y-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">O/L ප්‍රධාන විෂයන් තෝරන්න</h2>
+                        <span class="inline-block mt-1.5 px-3 py-1 bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs rounded-full font-medium">
+                            සාමාන්‍ය පෙළ (O/L Subjects)
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5 pt-2">
+                        ${subjectsHTML}
+                    </div>
+
+                    ${renderNavigationButtons()}
+                </div>
+            `;
+        }
+
+        function renderALSubjects() {
+            const streamKey = currentStateData.stream || 'Science';
+            const streamTitle = currentStateData.streamTitle || 'විද්‍යාව (Science)';
+            const subjectList = alStreamSubjects[streamKey] || alStreamSubjects['Science'];
+
+            const listHTML = subjectList.map(subj => `
+                <button onclick="selectSubject('${subj.id}', 'YEAR_SELECTION')" class="w-full py-3.5 px-4 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white font-medium text-sm rounded-xl border border-slate-700/60 transition-all active:scale-[0.98] text-left flex items-center justify-between group">
+                    <span class="group-hover:text-cyan-300 transition-colors">${subj.name}</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
+                </button>
+            `).join('');
+
+            return `
+                <div class="text-center space-y-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">A/L ප්‍රධාන විෂයන් තෝරන්න</h2>
+                        <span class="inline-block mt-1.5 px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs rounded-full font-medium">
+                            ${streamTitle} - ප්‍රධාන විෂයන්
+                        </span>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        ${listHTML}
+                    </div>
+
+                    ${renderNavigationButtons()}
+                </div>
+            `;
+        }
+
+        function renderYearSelection() {
+            const subjectName = currentStateData.subject || "Physics";
+            
+            let yearsGridHTML = years.map(yr => {
+                return `
+                    <button onclick="selectYear('${yr}')" 
+                        class="py-2.5 px-2 bg-slate-800/60 hover:bg-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-white font-semibold text-xs sm:text-sm rounded-xl border border-slate-700/60 transition-all active:scale-[0.96]">
+                        ${yr}
+                    </button>
+                `;
+            }).join('');
+
+            return `
+                <div class="text-center space-y-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-cyan-400">${subjectName}</h2>
+                        <p class="text-sm font-semibold text-slate-200 mt-1">අවුරුද්ද තෝරන්න</p>
+                        <p class="text-xs text-slate-400 mt-0.5">ඔබට අවශ්‍ය වර්ෂය මත Click කරන්න</p>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-2 pt-2">
+                        ${yearsGridHTML}
+                    </div>
+
+                    ${renderNavigationButtons()}
+                </div>
+            `;
+        }
+
+        function renderPaperDetails() {
+            const subjectName = currentStateData.subject || "Physics";
+            const selectedYr = currentStateData.selectedYear || "2023";
+
+            let yearsGridHTML = years.map(yr => {
+                const isSelected = yr === selectedYr;
+                const activeClasses = isSelected 
+                    ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-cyan-500/20 font-bold border-cyan-400" 
+                    : "bg-slate-800/60 hover:bg-slate-800 text-slate-300 hover:text-white font-medium border-slate-700/60";
+
+                return `
+                    <button onclick="selectYear('${yr}')" 
+                        class="py-2.5 px-2 text-xs sm:text-sm rounded-xl border transition-all ${activeClasses}">
+                        ${yr}
+                    </button>
+                `;
+            }).join('');
+
+            const prov1st = renderTermSection(selectedYr, subjectName, 'Provincial', '1st Term');
+            const prov2nd = renderTermSection(selectedYr, subjectName, 'Provincial', '2nd Term');
+            const prov3rd = renderTermSection(selectedYr, subjectName, 'Provincial', '3rd Term');
+            const provincialHTML = prov1st + prov2nd + prov3rd;
+
+            const school1st = renderTermSection(selectedYr, subjectName, 'School', '1st Term');
+            const school2nd = renderTermSection(selectedYr, subjectName, 'School', '2nd Term');
+            const school3rd = renderTermSection(selectedYr, subjectName, 'School', '3rd Term');
+            const schoolHTML = school1st + school2nd + school3rd;
+
+            const mcqBtn = renderPaperButton(`${selectedYr}_${subjectName}_MCQ Paper`, 'MCQ Paper Download', 'download', 'grid');
+            const essayBtn = renderPaperButton(`${selectedYr}_${subjectName}_Essay Paper`, 'Essay Paper Download', 'download', 'grid');
+            const markingBtn = renderPaperButton(`${selectedYr}_${subjectName}_Marking Scheme`, 'Marking Scheme Download', 'file-check', 'teal');
+
+            return `
+                <div class="text-center space-y-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-cyan-400">${subjectName}</h2>
+                        <p class="text-sm font-semibold text-slate-200 mt-1">අවුරුද්ද තෝරන්න</p>
+                        <p class="text-xs text-slate-400 mt-0.5">ඔබට අවශ්‍ය වර්ෂය මත Click කරන්න</p>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-2 pt-1">
+                        ${yearsGridHTML}
+                    </div>
+
+                    <div class="space-y-4 pt-3 text-left border-t border-slate-800/80">
+                        
+                        ${(mcqBtn || essayBtn || markingBtn) ? `
+                        <div class="space-y-2">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                ${selectedYr} Past Paper & Scheme
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${mcqBtn}
+                                ${essayBtn}
+                            </div>
+                            ${markingBtn}
+                        </div>
+                        ` : ''}
+
+                        ${provincialHTML ? `
+                        <div class="space-y-2 pt-1">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                ${selectedYr} Provincial Term Test Papers
+                            </h3>
+                            ${provincialHTML}
+                        </div>
+                        ` : ''}
+
+                        ${schoolHTML ? `
+                        <div class="space-y-2 pt-1">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                ${selectedYr} School Term Test Papers
+                            </h3>
+                            ${schoolHTML}
+                        </div>
+                        ` : ''}
+
+                    </div>
+
+                    ${renderNavigationButtons()}
+                </div>
+            `;
+        }
+
+        function renderNavigationButtons() {
+            return `
+                <div class="pt-4 flex items-center justify-center gap-4 text-xs text-slate-400 border-t border-slate-800/60 mt-4">
+                    <button onclick="goBack()" class="hover:text-cyan-400 flex items-center gap-1 font-medium transition-colors py-1 px-2 rounded-lg hover:bg-slate-800/50">
+                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> පෙර පිටුවට (Back)
+                    </button>
+                    <span class="text-slate-700">|</span>
+                    <button onclick="goHome()" class="hover:text-cyan-400 flex items-center gap-1 font-medium transition-colors py-1 px-2 rounded-lg hover:bg-slate-800/50">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i> මුල් පිටුවට (Home)
+                    </button>
+                </div>
+            `;
+        }
+
+        function navigateTo(step) {
+            stateHistory.push(step);
+            renderScreen();
+        }
+
+        function goBack() {
+            if (stateHistory.length > 1) {
+                stateHistory.pop();
+                renderScreen();
+            }
+        }
+
+        function goHome() {
+            stateHistory = ['HOME'];
+            currentStateData = { exam: null, stream: null, streamTitle: '', subject: null, selectedYear: null };
+            renderScreen();
+        }
+
+        function selectALStream(streamKey, streamTitle) {
+            currentStateData.stream = streamKey;
+            currentStateData.streamTitle = streamTitle;
+            navigateTo('AL_SUBJECTS');
+        }
+
+        function selectSubject(subjName, nextStep) {
+            currentStateData.subject = subjName;
+            navigateTo(nextStep);
+        }
+
+        function selectYear(yr) {
+            currentStateData.selectedYear = yr;
+            if (stateHistory[stateHistory.length - 1] !== 'PAPER_DETAILS') {
+                navigateTo('PAPER_DETAILS');
+            } else {
+                renderScreen();
+            }
+        }
+
+        let currentTargetDownloadLink = '';
+        let adCountdownTimer = null;
+
+        function downloadPaper(paperKey) {
+            const link = paperLinks[paperKey];
+            if (link && link.trim() !== "" && !link.includes("YOUR_")) {
+                currentTargetDownloadLink = link;
+                triggerAdvertisementModal();
+            } else {
+                showToast(`අදාළ Link එක තවම ඇතුළත් කර නැත!`);
+            }
+        }
+
+        // Shorts ඇතුළු සියලුම YouTube URL වලින් Video ID එක නිවැරදිව ලබා ගැනීමට යාවත්කාලීන කළ Function එක
+        function extractYouTubeID(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function triggerAdvertisementModal() {
+            const overlay = document.getElementById('ad-modal-overlay');
+            if (!overlay) return;
+
+            let selectedAdLink = '';
+            if (advertisementLinks && advertisementLinks.length > 0) {
+                const randomIndex = Math.floor(Math.random() * advertisementLinks.length);
+                selectedAdLink = advertisementLinks[randomIndex];
+            }
+
+            const videoId = extractYouTubeID(selectedAdLink);
+            const isImagePost = !videoId && (selectedAdLink.endsWith('.jpg') || selectedAdLink.endsWith('.png') || selectedAdLink.endsWith('.webp') || selectedAdLink.includes('ggpht.com'));
+
+            let mediaHTML = '';
+
+            if (videoId) {
+                // Error 153 විසඳීමට referrerpolicy="strict-origin-when-cross-origin" එකතු කරන ලදී
+                mediaHTML = `
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-lg">
+                        <iframe 
+                            src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1" 
+                            title="Advertisement" 
+                            class="w-full h-full border-0 pointer-events-none scale-[1.05]"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            } else if (isImagePost) {
+                mediaHTML = `
+                    <div class="w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-700/50 flex items-center justify-center max-h-[350px]">
+                        <img src="${selectedAdLink}" alt="Advertisement" class="w-full h-full object-contain" />
+                    </div>
+                `;
+            } else {
+                mediaHTML = `
+                    <div class="w-full p-8 rounded-xl bg-slate-800/80 border border-slate-700/60 text-center">
+                        <i data-lucide="sparkles" class="w-10 h-10 text-cyan-400 mx-auto mb-3 animate-pulse"></i>
+                        <p class="text-sm font-semibold text-slate-200">NGP6 Official Sponsor Announcement</p>
+                        <p class="text-xs text-slate-400 mt-1">ඔබගේ Download Link එක සුදානම් වෙමින් පවතී...</p>
+                    </div>
+                `;
+            }
+
+            overlay.innerHTML = `
+                <div class="ad-modal-anim w-full max-w-md bg-slate-900 border border-cyan-500/30 rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-4 relative">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-bold uppercase tracking-wider">Ad</span>
+                            <span class="text-xs font-semibold text-slate-300">Sponsor Advertisement</span>
+                        </div>
+                        <span id="ad-timer-text" class="text-xs text-slate-400 font-medium">Skip in <b id="ad-countdown" class="text-cyan-400">5</b>s</span>
+                    </div>
+
+                    ${mediaHTML}
+
+                    <div class="pt-1 flex items-center justify-end">
+                        <button id="skip-ad-btn" disabled onclick="skipAdAndDownload()" 
+                            class="py-2.5 px-5 bg-slate-800 text-slate-500 font-semibold text-xs rounded-xl border border-slate-700 cursor-not-allowed transition-all flex items-center gap-2">
+                            <span>Skip Ad</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            if (window.lucide) lucide.createIcons();
+
+            let timeLeft = 5;
+            if (adCountdownTimer) clearInterval(adCountdownTimer);
+
+            adCountdownTimer = setInterval(() => {
+                timeLeft--;
+                const countdownElem = document.getElementById('ad-countdown');
+                if (countdownElem) countdownElem.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(adCountdownTimer);
+                    const skipBtn = document.getElementById('skip-ad-btn');
+                    const timerText = document.getElementById('ad-timer-text');
+                    
+                    if (skipBtn) {
+                        skipBtn.disabled = false;
+                        skipBtn.className = "py-2.5 px-5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-cyan-500/25 cursor-pointer transition-all flex items-center gap-2 active:scale-95 animate-bounce";
+                    }
+                    if (timerText) {
+                        timerText.innerHTML = `<span class="text-cyan-400 font-semibold">You can skip now</span>`;
+                    }
+                }
+            }, 1000);
+        }
+
+        function skipAdAndDownload() {
+            const overlay = document.getElementById('ad-modal-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                overlay.innerHTML = ``;
+            }
+
+            if (adCountdownTimer) clearInterval(adCountdownTimer);
+
+            if (currentTargetDownloadLink) {
+                window.open(currentTargetDownloadLink, '_blank');
+                currentTargetDownloadLink = '';
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-cyan-500/40 text-slate-100 text-xs sm:text-sm py-3 px-5 rounded-2xl shadow-2xl shadow-cyan-950/80 z-50 transition-all duration-300 transform opacity-0 translate-y-3 flex items-center gap-2.5 backdrop-blur-md';
+            toast.innerHTML = `<i data-lucide="info" class="w-4 h-4 text-cyan-400"></i> <span class="font-medium">${message}</span>`;
+            
+            document.body.appendChild(toast);
+            if (window.lucide) lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-3');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-3');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        window.onload = function() {
+            renderScreen();
+        };
+    </script>
+</body>
+</html>
