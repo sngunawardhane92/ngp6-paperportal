@@ -154,32 +154,25 @@
 
     <!-- Application Logic Script -->
     <script>
-        /* 
-        ========================================================================
-        📢 [1] ADVERTISEMENT LINKS CONFIGURATION (දැන්වීම් ලින්ක්ස් මෙතැනට එකතු කරන්න)
-        ========================================================================
-        */
         const advertisementLinks = [
             'https://www.youtube.com/watch?v=PIrLGBgoz2U', 
             'https://youtu.be/4iIGMRsjlmI',                
             'https://youtube.com/shorts/37mbAGrhdxo?feature=share', 
         ];
 
-        /* 
-        ========================================================================
-        📌 GOOGLE DRIVE LINKS එකතු කිරීමේ උපදෙස් (INSTRUCTIONS):
-        ========================================================================
-        */
         const paperLinks = {
-            '2023_Physics_MCQ Paper': 'https://drive.google.com/file/d/YOUR_2023_PHYSICS_MCQ_ID/view?usp=sharing',
-            '2023_Physics_Essay Paper': 'https://drive.google.com/file/d/YOUR_2023_ESSAY_FILE_ID/view?usp=sharing',
-            '2023_Physics_Marking Scheme': 'https://drive.google.com/file/d/YOUR_2023_MARKING_FILE_ID/view?usp=sharing',
-            '2023_Physics_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_PROV_1ST_WP_ID/view?usp=sharing',
-            '2023_Physics_Provincial_1st Term_North Western': 'https://drive.google.com/file/d/YOUR_PROV_1ST_NW_ID/view?usp=sharing',
-            '2023_Physics_Provincial_2nd Term_Western Province': 'https://drive.google.com/file/d/YOUR_PROV_2ND_WP_ID/view?usp=sharing',
-            '2023_Physics_School_1st Term_Royal College': 'https://drive.google.com/file/d/YOUR_SCHOOL_1ST_ROYAL_ID/view?usp=sharing',
-            '2023_Physics_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/YOUR_SCHOOL_1ST_NALANDA_ID/view?usp=sharing',
-            '2023_Physics_School_2nd Term_Royal College': 'https://drive.google.com/file/d/YOUR_SCHOOL_2ND_ROYAL_ID/view?usp=sharing',
+            '2023_Physics_MCQ Paper': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+            '2023_Physics_Essay Paper': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+            '2023_Physics_Marking Scheme': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+            
+            // Grade 12 Examples
+            '2023_Physics_Grade 12_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+            '2023_Physics_Grade 12_School_1st Term_Royal College': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+
+            // Grade 13 Examples
+            '2023_Physics_Grade 13_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+            '2023_Physics_Grade 13_School_1st Term_Royal College': 'https://drive.google.com/file/d/1e2bt_yC6ACSNQmib4qPb_tgHhP_QLNxw/view?usp=drive_link',
+
             '2023_Science (විද්‍යාව)_MCQ Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MCQ_ID/view?usp=sharing',
             '2023_Science (විද්‍යාව)_Essay Paper': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_ESSAY_ID/view?usp=sharing',
             '2023_Science (විද්‍යාව)_Marking Scheme': 'https://drive.google.com/file/d/YOUR_OL_SCIENCE_MARKING_ID/view?usp=sharing',
@@ -231,66 +224,16 @@
             '2025_Maths (ගණිතය)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1pSWsh9AcOuG07bBXarvZnM5Yb52y4Nb1/view?usp=sharing',
             '2025_Maths (ගණිතය)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1fLbzY_Z9Isf77xOnRqsS6l62uVwtyAVB/view?usp=sharing',
             '2025_Maths (ගණිතය)_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1fLDEcfU-9UdS9orZmJSiPTCMGxI-DhYX/view?usp=sharing',
-
-            // --- G.C.E. O/L SCIENCE PAPERS ---
-            '2019_Science (විද්‍යාව)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/11R78roA9EVUE-hZ4einDlEJXvZKHSOoR/view?usp=sharing',
-            '2019_Science (විද්‍යාව)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1fwZyFEEQAMfIL5nwEDy6iccZh7puecnx/view?usp=sharing',
-            '2019_Science (විද්‍යාව)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/12wMLiLsAACEM8McSHp7ZHC7Vji9hiQml/view?usp=sharing',
-            '2019_Science (විද්‍යාව)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1oXG9JdSS0Ta-gUqRBk-NTup0uoPaYGLb/view?usp=sharing',
-            '2019_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1c7pSE5X-TipVmiGZHa6Cz1ohZ2NWl5MF/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_Provincial_1st Term_North Western Province': 'https://drive.google.com/file/d/1izVhyed94tGYtQoM93vHuaG_o4KaZVgx/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1TxZMvvytkDRB9KHRQJ64Bin7RstUR3gL/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1izhVN0kbE0igXfFeZPuYQ7iGNSfiGDfS/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1Qi3Kw--GbeYPlPJpuXg0wR60iyDK3KG6/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/1TxEof6a5e9SHsyu6Bnwg0V-VvY20w1Fs/view?usp=sharing',
-            '2020_Science (විද්‍යාව)_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1Xb0uFAkxpiT6XrbzT_Il9V4n1IUKMDcd/view?usp=sharing',
-            '2021_Science (විද්‍යාව)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1ad7q4fR9GAfVRZ7hvGOaqupvb1yY6NQz/view?usp=sharing',
-            '2021_Science (විද්‍යාව)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1_nde0exPsWSxjNZV7ZX9PNzZwFi125gT/view?usp=sharing',
-            '2021_Science (විද්‍යාව)_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1NMfS8samLhNPP2HStQ68nCkZwO2Dm3iF/view?usp=sharing',
-            '2022_Science (විද්‍යාව)_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1eqTBZQ15vdsrpfbyAT4DThhRIeuMDo2Q/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1HNNasa1V6AzkocTdyBdbKZ27PwkUNkBN/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1-rp_Rv0YqJbVL7IXXEqnlsdC9l1gWvyU/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1KGbz-QlFzbqOWZ9jyZWTqegjpCwe34YH/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1kUG1U6wppjfp1aIPD7Bd9Oin04QKDBGY/view?usp=sharing',
-            '2023_Science (විද්‍යාව)_School_1st Term_Bandaranayake College Gampaha': 'https://drive.google.com/file/d/1EE8UIsRYKjQX5dPQSUIv1Pur0cnP3UTL/view?usp=sharing',
-
-            // --- G.C.E. O/L ENGLISH PAPERS ---
-            '2018_English (ඉංග්‍රීසි)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/13-BdUCjerK_59S6dtIoJ4lG4qMn-aIt3/view?usp=sharing',
-            '2019_English (ඉංග්‍රීසි)_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/1ZMhbrG1i5pL_EyoRBk9Llv5FNiZefyDn/view?usp=sharing',
-            '2022_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1J92iN8WW8aCVgZEx2JoTBVYqEuMroaDt/view?usp=sharing',
-            '2023_English (ඉංග්‍රීසි)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/188f1Cd_gwYILP2TZPwahH7dJCAg9xI5N/view?usp=sharing',
-            '2023_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1bSRWnImVAN62gLpkPHYhrAngQiuNOhz6/view?usp=sharing',
-            '2023_English (ඉංග්‍රීසි)_School_1st Term_Jaffna Hindu College': 'https://drive.google.com/file/d/1m6e63WdN0cczFEYJ1fVog1AHSyrLtVkd/view?usp=sharing',
-            '2023_English (ඉංග්‍රීසි)_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1YHwj6W40l_CMePJTd_lcIdTfW7ZkrmSA/view?usp=sharing',
-            '2023_English (ඉංග්‍රීසි)_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1_4CSfcA1LaA9bjAaOUspCquYxWlZJY_d/view?usp=sharing',
-            '2024_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1jm6Pyhy841B71GoQ_63k3xGwfvcWxZuu/view?usp=sharing',
-            '2024_English (ඉංග්‍රීසි)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1KlkWOhap_J-e_49lQsZBPBJt7wG_XHXM/view?usp=sharing',
-            '2025_English (ඉංග්‍රීසි)_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1iSMY7pQDTY_yOJn6qgSz-eDVd0PT1FdY/view?usp=sharing',
-
-            // --- G.C.E. O/L SINHALA PAPERS ---
-            '2019_Sinhala (සිංහල)_Provincial_1st Term_Southern Province': 'https://drive.google.com/file/d/1JY5n6NuRmBj29T-uQgU2pTcD8M6L1yXV/view?usp=sharing',
-            '2019_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1XpvtvUZQqp9VlIhBBCY74MdhlqbfVtnp/view?usp=sharing',
-            '2022_Sinhala (සිංහල)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1PYV3RHjH-t9CLIosxMkEPb5pwvJ71N59/view?usp=sharing',
-            '2023_Sinhala (සිංහල)_Provincial_2nd Term_Mathugama Zone': 'https://drive.google.com/file/d/1hkbI-GW0a9HwsPr8Vyd7IH2OS0kyLUGC/view?usp=sharing',
-            '2023_Sinhala (සිංහල)_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1oaL4yuswOrs6Zaz13C2kF1bqF5bfdeIh/view?usp=sharing',
-            '2024_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1-VlNSO9qaBsQPMtuteRmcQB-t3wqiGEk/view?usp=sharing',
-            '2024_Sinhala (සිංහල)_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1bSnJtjAb0v5qzXESTGauvDI2Q4PesJLp/view?usp=sharing',
-            '2024_Sinhala (සිංහල)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1pq5JUd2jMYNWTsu-u6n2LSBdFD6iNtts/view?usp=sharing',
-            '2025_Sinhala (සිංහල)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1OvI-Uzgybu8FKPqmDcbk4hLU5Ds6wZ1L/view?usp=sharing',
-            '2025_Sinhala (සිංහල)_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1Qsb5aQS84ZZkhmjVEaAsU2cLk60tlb_z/view?usp=sharing',
-
-            // --- G.C.E. O/L ICT PAPERS ---
-            '2024_ICT (තොරතුරු හා සන්නිවේදනය)_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1qRK0-FUxBsnLlg726oOA77LQhVSK_HcD/view?usp=sharing',
         };
 
-        // Navigation and Application State Management
         let stateHistory = ['HOME'];
         let currentStateData = {
             exam: null,        
             stream: null,      
             streamTitle: '',   
             subject: null,     
-            selectedYear: null 
+            selectedYear: null,
+            alTab: 'GRADE_12'   
         };
 
         const years = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
@@ -356,7 +299,8 @@
             `;
         }
 
-        function renderTermSection(selectedYr, subjectName, categoryType, termName) {
+        // Updated function to handle Grade specific prefix lookup
+        function renderGradeTermSection(selectedYr, subjectName, gradeLevel, categoryType, termName) {
             let buttonsHTML = '';
 
             const knownEntities = categoryType === 'Provincial' ? [
@@ -387,14 +331,14 @@
             const renderedKeys = new Set();
 
             knownEntities.forEach(ent => {
-                const fullKey = `${selectedYr}_${subjectName}_${categoryType}_${termName}_${ent.key}`;
+                const fullKey = `${selectedYr}_${subjectName}_${gradeLevel}_${categoryType}_${termName}_${ent.key}`;
                 if (paperLinks[fullKey]) {
                     buttonsHTML += renderPaperButton(fullKey, ent.label, 'download');
                     renderedKeys.add(fullKey);
                 }
             });
 
-            const prefix = `${selectedYr}_${subjectName}_${categoryType}_${termName}_`;
+            const prefix = `${selectedYr}_${subjectName}_${gradeLevel}_${categoryType}_${termName}_`;
             Object.keys(paperLinks).forEach(pk => {
                 if (pk.startsWith(prefix) && !renderedKeys.has(pk)) {
                     const customName = pk.substring(prefix.length);
@@ -464,7 +408,7 @@
                     </div>
 
                     <div class="space-y-3 pt-2">
-                        <button onclick="navigateTo('AL_STREAMS')" 
+                        <button onclick="selectExamLevel('AL')" 
                             class="w-full py-4 px-5 glow-button-primary text-white font-semibold rounded-xl text-sm active:scale-[0.98] flex items-center justify-between group">
                             <span class="flex items-center gap-2.5">
                                 <i data-lucide="award" class="w-5 h-5 text-cyan-300"></i>
@@ -473,7 +417,7 @@
                             <i data-lucide="chevron-right" class="w-4 h-4 text-cyan-200 group-hover:translate-x-1 transition-transform"></i>
                         </button>
 
-                        <button onclick="navigateTo('OL_SUBJECTS')" 
+                        <button onclick="selectExamLevel('OL')" 
                             class="w-full py-4 px-5 glow-button-emerald text-white font-semibold rounded-xl text-sm active:scale-[0.98] flex items-center justify-between group">
                             <span class="flex items-center gap-2.5">
                                 <i data-lucide="book-open" class="w-5 h-5 text-teal-200"></i>
@@ -486,11 +430,23 @@
             `;
         }
 
+        function selectExamLevel(level) {
+            currentStateData.exam = level;
+            navigateTo('AL_STREAMS');
+        }
+
         function renderALStreams() {
+            const isAL = currentStateData.exam === 'AL';
+            const titleText = isAL ? "A/L විෂය ධාරාව තෝරන්න" : "O/L ප්‍රධාන විෂයන් තෝරන්න";
+            
+            if (!isAL) {
+                return renderOLSubjects();
+            }
+
             return `
                 <div class="text-center space-y-5">
                     <div>
-                        <h2 class="text-xl font-bold text-white">A/L විෂය ධාරාව තෝරන්න</h2>
+                        <h2 class="text-xl font-bold text-white">${titleText}</h2>
                         <span class="inline-block mt-1.5 px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs rounded-full font-medium">
                             උසස් පෙළ විෂය කාණ්ඩයන් (A/L Streams)
                         </span>
@@ -603,9 +559,15 @@
             `;
         }
 
+        function switchALTab(tabName) {
+            currentStateData.alTab = tabName;
+            renderScreen();
+        }
+
         function renderPaperDetails() {
             const subjectName = currentStateData.subject || "Physics";
             const selectedYr = currentStateData.selectedYear || "2023";
+            const isAL = currentStateData.exam === 'AL';
 
             let yearsGridHTML = years.map(yr => {
                 const isSelected = yr === selectedYr;
@@ -621,19 +583,102 @@
                 `;
             }).join('');
 
-            const prov1st = renderTermSection(selectedYr, subjectName, 'Provincial', '1st Term');
-            const prov2nd = renderTermSection(selectedYr, subjectName, 'Provincial', '2nd Term');
-            const prov3rd = renderTermSection(selectedYr, subjectName, 'Provincial', '3rd Term');
-            const provincialHTML = prov1st + prov2nd + prov3rd;
-
-            const school1st = renderTermSection(selectedYr, subjectName, 'School', '1st Term');
-            const school2nd = renderTermSection(selectedYr, subjectName, 'School', '2nd Term');
-            const school3rd = renderTermSection(selectedYr, subjectName, 'School', '3rd Term');
-            const schoolHTML = school1st + school2nd + school3rd;
-
             const mcqBtn = renderPaperButton(`${selectedYr}_${subjectName}_MCQ Paper`, 'MCQ Paper Download', 'download', 'grid');
             const essayBtn = renderPaperButton(`${selectedYr}_${subjectName}_Essay Paper`, 'Essay Paper Download', 'download', 'grid');
             const markingBtn = renderPaperButton(`${selectedYr}_${subjectName}_Marking Scheme`, 'Marking Scheme Download', 'file-check', 'teal');
+
+            let papersSectionHTML = '';
+
+            if (isAL) {
+                const activeTab = currentStateData.alTab || 'GRADE_12';
+                const isGrade12 = activeTab === 'GRADE_12';
+                const gradeKey = isGrade12 ? 'Grade 12' : 'Grade 13';
+
+                // Grade 12 හෝ 13 සඳහා Provincial සහ School Term Papers ලබා ගැනීම
+                const prov1st = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'Provincial', '1st Term');
+                const prov2nd = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'Provincial', '2nd Term');
+                const prov3rd = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'Provincial', '3rd Term');
+                const provincialHTML = prov1st + prov2nd + prov3rd;
+
+                const school1st = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'School', '1st Term');
+                const school2nd = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'School', '2nd Term');
+                const school3rd = renderGradeTermSection(selectedYr, subjectName, gradeKey, 'School', '3rd Term');
+                const schoolHTML = school1st + school2nd + school3rd;
+
+                let tabContentHTML = `
+                    <div class="space-y-4 pt-2 text-left">
+                        ${provincialHTML ? `
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i> ${gradeKey} Provincial Term Papers
+                            </h4>
+                            ${provincialHTML}
+                        </div>` : ''}
+
+                        ${schoolHTML ? `
+                        <div class="space-y-2 pt-1">
+                            <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-cyan-400"></i> ${gradeKey} School Term Papers
+                            </h4>
+                            ${schoolHTML}
+                        </div>` : ''}
+
+                        ${!provincialHTML && !schoolHTML ? `<p class="text-xs text-slate-500 text-center py-4">No papers found for ${gradeKey} in ${selectedYr}.</p>` : ''}
+                    </div>
+                `;
+
+                papersSectionHTML = `
+                    <div class="space-y-3 pt-2 border-t border-slate-800/80">
+                        <!-- Grade 12 & Grade 13 Tabs Header -->
+                        <div class="flex rounded-xl bg-slate-900/80 p-1 border border-slate-800">
+                            <button onclick="switchALTab('GRADE_12')" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${isGrade12 ? 'bg-cyan-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'}">
+                                Grade 12 Papers
+                            </button>
+                            <button onclick="switchALTab('GRADE_13')" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${!isGrade12 ? 'bg-cyan-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'}">
+                                Grade 13 Papers
+                            </button>
+                        </div>
+                        
+                        <!-- Tab Content -->
+                        <div class="mt-2">
+                            ${tabContentHTML}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // O/L සඳහා සාමාන්‍ය පරිදි Provincial සහ School පෙන්වීම
+                const prov1st = renderGradeTermSection(selectedYr, subjectName, '', 'Provincial', '1st Term');
+                const prov2nd = renderGradeTermSection(selectedYr, subjectName, '', 'Provincial', '2nd Term');
+                const prov3rd = renderGradeTermSection(selectedYr, subjectName, '', 'Provincial', '3rd Term');
+                const provincialHTML = prov1st + prov2nd + prov3rd;
+
+                const school1st = renderGradeTermSection(selectedYr, subjectName, '', 'School', '1st Term');
+                const school2nd = renderGradeTermSection(selectedYr, subjectName, '', 'School', '2nd Term');
+                const school3rd = renderGradeTermSection(selectedYr, subjectName, '', 'School', '3rd Term');
+                const schoolHTML = school1st + school2nd + school3rd;
+
+                papersSectionHTML = `
+                    <div class="space-y-4 pt-3 text-left border-t border-slate-800/80">
+                        ${provincialHTML ? `
+                        <div class="space-y-2 pt-1">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                ${selectedYr} Provincial Term Test Papers
+                            </h3>
+                            ${provincialHTML}
+                        </div>` : ''}
+
+                        ${schoolHTML ? `
+                        <div class="space-y-2 pt-1">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                ${selectedYr} School Term Test Papers
+                            </h3>
+                            ${schoolHTML}
+                        </div>` : ''}
+                    </div>
+                `;
+            }
 
             return `
                 <div class="text-center space-y-5">
@@ -647,43 +692,23 @@
                         ${yearsGridHTML}
                     </div>
 
-                    <div class="space-y-4 pt-3 text-left border-t border-slate-800/80">
-                        
-                        ${(mcqBtn || essayBtn || markingBtn) ? `
-                        <div class="space-y-2">
-                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                                <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                ${selectedYr} Past Paper & Scheme
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                ${mcqBtn}
-                                ${essayBtn}
-                            </div>
-                            ${markingBtn}
+                    <!-- Past Papers & Marking Schemes (ටැබ් වලින් පිටත තබා ඇත) -->
+                    ${(mcqBtn || essayBtn || markingBtn) ? `
+                    <div class="space-y-2 pt-3 border-t border-slate-800/80 text-left">
+                        <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            ${selectedYr} Past Paper & Scheme
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${mcqBtn}
+                            ${essayBtn}
                         </div>
-                        ` : ''}
-
-                        ${provincialHTML ? `
-                        <div class="space-y-2 pt-1">
-                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                ${selectedYr} Provincial Term Test Papers
-                            </h3>
-                            ${provincialHTML}
-                        </div>
-                        ` : ''}
-
-                        ${schoolHTML ? `
-                        <div class="space-y-2 pt-1">
-                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-cyan-400"></i>
-                                ${selectedYr} School Term Test Papers
-                            </h3>
-                            ${schoolHTML}
-                        </div>
-                        ` : ''}
-
+                        ${markingBtn}
                     </div>
+                    ` : ''}
+
+                    <!-- Grade 12 / Grade 13 Tabs Section -->
+                    ${papersSectionHTML}
 
                     ${renderNavigationButtons()}
                 </div>
@@ -718,7 +743,7 @@
 
         function goHome() {
             stateHistory = ['HOME'];
-            currentStateData = { exam: null, stream: null, streamTitle: '', subject: null, selectedYear: null };
+            currentStateData = { exam: null, stream: null, streamTitle: '', subject: null, selectedYear: null, alTab: 'GRADE_12' };
             renderScreen();
         }
 
@@ -755,7 +780,6 @@
             }
         }
 
-        // Shorts ඇතුළු සියලුම YouTube URL වලින් Video ID එක නිවැරදිව ලබා ගැනීමට යාවත්කාලීන කළ Function එක
         function extractYouTubeID(url) {
             if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
@@ -779,7 +803,6 @@
             let mediaHTML = '';
 
             if (videoId) {
-                // Error 153 විසඳීමට referrerpolicy="strict-origin-when-cross-origin" එකතු කරන ලදී
                 mediaHTML = `
                     <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black shadow-lg">
                         <iframe 
