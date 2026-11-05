@@ -270,17 +270,47 @@
         }
 
         .stats-mini-box {
-            background: rgba(15, 23, 42, 0.78);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            color: #cbd5e1;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            letter-spacing: 0.01em;
         }
         html:not(.dark) .stats-mini-box {
-            background: rgba(226, 232, 240, 0.92);
+            background: rgba(226, 232, 240, 0.94);
             border: 1px solid #94a3b8;
-            color: #334155;
+            color: #1e293b;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+        }
+
+        @keyframes counterPopIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.85);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-2px) scale(1.04);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .counter-pop-item {
+            opacity: 0;
+            animation: counterPopIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .counter-delay-1 {
+            animation-delay: 0.35s;
+        }
+        .counter-delay-2 {
+            animation-delay: 0.5s;
+        }
+        .counter-delay-3 {
+            animation-delay: 0.65s;
         }
         html:not(.dark) #counter-website-visits {
             color: #0369a1 !important;
@@ -325,8 +355,8 @@
     <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full filter blur-[120px] pointer-events-none ambient-orb-2 z-0"></div>
     <canvas id="papers-bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Top-Right Corner Icon-Only Theme Switcher & Mini Counters -->
-    <div class="fixed top-3 right-3 sm:top-4 sm:right-5 z-40 flex flex-col items-end gap-1.5">
+    <!-- Top-Right Corner Icon-Only Theme Switcher -->
+    <div class="fixed top-4 right-4 sm:top-5 sm:right-6 z-40">
         <div class="theme-switcher-pill inline-flex items-center gap-1 p-1 rounded-full shadow-lg transition-all" role="group" aria-label="Theme Mode Switcher">
             <button id="theme-dark-btn" type="button" onclick="setThemeMode('dark')" 
                 class="flex items-center justify-center w-8 h-8 rounded-full transition-all bg-cyan-500 text-slate-950 shadow-sm"
@@ -339,31 +369,31 @@
                 <i data-lucide="sun" class="w-4 h-4"></i>
             </button>
         </div>
-
-        <!-- Compact Counters Below Mode Switcher -->
-        <div class="stats-mini-box px-2.5 py-1.5 rounded-xl text-[10px] leading-tight font-medium shadow-md transition-all flex flex-col gap-1 text-right select-none">
-            <div class="flex items-center justify-between gap-2">
-                <span>Website Visits :</span>
-                <span id="counter-website-visits" class="font-bold text-cyan-400 tabular-nums">1200</span>
-            </div>
-            <div class="flex items-center justify-between gap-2">
-                <span>O/L Paper views :</span>
-                <span id="counter-ol-views" class="font-bold text-teal-400 tabular-nums">750</span>
-            </div>
-            <div class="flex items-center justify-between gap-2">
-                <span>A/L Paper views :</span>
-                <span id="counter-al-views" class="font-bold text-blue-400 tabular-nums">500</span>
-            </div>
-        </div>
     </div>
 
     <!-- Centered Header Above Card with Larger Font Size -->
-    <header class="mb-6 text-center z-10 max-w-md w-full flex justify-center">
+    <header class="mb-3.5 text-center z-10 max-w-md w-full flex justify-center">
         <div class="header-badge inline-flex items-center justify-center gap-2.5 px-5 py-2 rounded-full bg-slate-900/90 border border-cyan-500/35 text-cyan-400 text-base sm:text-lg font-bold tracking-wide shadow-lg shadow-cyan-500/10 transition-all">
             <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shrink-0"></span>
             <span>Term Tests and Past Papers</span>
         </div>
     </header>
+
+    <!-- Horizontally Listed Counters Just Above the Card (Centered & Delayed Pop-up Animation) -->
+    <div class="mb-3.5 z-10 max-w-md w-full flex flex-wrap items-center justify-center gap-2 select-none">
+        <div class="stats-mini-box counter-pop-item counter-delay-1 px-2.5 py-1.5 rounded-full text-[10px] leading-tight font-medium shadow-md flex items-center gap-1.5">
+            <span>Website Visits :</span>
+            <span id="counter-website-visits" class="font-bold text-cyan-400 tabular-nums">1200</span>
+        </div>
+        <div class="stats-mini-box counter-pop-item counter-delay-2 px-2.5 py-1.5 rounded-full text-[10px] leading-tight font-medium shadow-md flex items-center gap-1.5">
+            <span>O/L Paper views :</span>
+            <span id="counter-ol-views" class="font-bold text-teal-400 tabular-nums">750</span>
+        </div>
+        <div class="stats-mini-box counter-pop-item counter-delay-3 px-2.5 py-1.5 rounded-full text-[10px] leading-tight font-medium shadow-md flex items-center gap-1.5">
+            <span>A/L Paper views :</span>
+            <span id="counter-al-views" class="font-bold text-blue-400 tabular-nums">500</span>
+        </div>
+    </div>
 
     <div id="app-card" class="card-animation ngp6-glass w-full max-w-md rounded-2xl shadow-2xl shadow-cyan-950/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 min-h-[520px] z-10 relative">
         
@@ -1431,13 +1461,16 @@
 
         function renderHome() {
             return `
-                <div class="text-center space-y-6">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white mb-1.5 tracking-tight">A/L & O/L Past Papers</h2>
-                        <p class="text-xs text-slate-400">ඔබට අවශ්‍ය විභාග මට්ටම තෝරන්න (Select Exam Level)</p>
+                <div class="text-center space-y-7">
+                    <div class="space-y-2.5">
+                        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">O/L & A/L Papers with Marking Schemes</h2>
+                        <p class="text-xs text-slate-300 leading-relaxed px-1">
+                            පාසල් වාර විභාග/පළාත් වාර විභාග/පසුගිය සා.පෙ; උ.පෙ විභාග ප්‍රශ්න පත්‍ර සහ පිළිතුරු <span class="block text-[11px] text-slate-400 mt-0.5">(School/Provincial/ A/L & O/L Past Exam Papers and Marking Schemes)</span>
+                        </p>
                     </div>
 
-                    <div class="space-y-3 pt-2">
+                    <div class="space-y-2.5 pt-1">
+                        <p class="text-xs font-medium text-cyan-400 mb-1">ඔබට අවශ්‍ය විභාග මට්ටම තෝරන්න (Select Exam Level)</p>
                         <button onclick="selectExamLevel('AL')" 
                             class="w-full py-4 px-5 glow-button-primary text-white font-semibold rounded-xl text-sm active:scale-[0.98] flex items-center justify-between group">
                             <span class="flex items-center gap-2.5">
