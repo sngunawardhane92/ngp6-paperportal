@@ -32,24 +32,28 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body {
+        html, body {
             font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
-            background-color: #070a12;
+            background-color: #060913;
             color: #f8fafc;
+            transition: background-color 0.35s ease, color 0.35s ease;
         }
 
         .bg-glow {
-            background: 
-                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+            background-color: #060913;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.16) 0%, transparent 42%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.14) 0%, transparent 42%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.09) 0%, transparent 60%);
         }
 
+        /* Dark Mode Card: Light Dark (distinctly lighter slate than the deep dark background) */
         .ngp6-glass {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(30, 41, 59, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            box-shadow: 0 22px 50px -12px rgba(2, 6, 23, 0.75), 0 0 25px -5px rgba(6, 182, 212, 0.12);
         }
 
         .card-animation {
@@ -103,6 +107,201 @@
             animation: adFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+
+        .papers-grid-overlay {
+            background-size: 42px 42px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.85) 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.85) 20%, transparent 80%);
+        }
+
+        @keyframes ambientFloatSlow {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -25px) scale(1.08); }
+            66% { transform: translate(-25px, 20px) scale(0.95); }
+        }
+
+        .ambient-orb-1 {
+            animation: ambientFloatSlow 16s ease-in-out infinite;
+        }
+        .ambient-orb-2 {
+            animation: ambientFloatSlow 20s ease-in-out infinite reverse;
+        }
+
+
+        /* =================================================================
+           🌞 LIGHT MODE ADAPTIVE STYLES (Default is Dark Mode: html.dark)
+           ================================================================= */
+        html:not(.dark),
+        html:not(.dark) body {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+
+        html:not(.dark) .bg-glow {
+            background-color: #f8fafc !important;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 65%) !important;
+        }
+
+        html:not(.dark) .ambient-orb-1 {
+            background-color: rgba(56, 189, 248, 0.22) !important;
+        }
+        html:not(.dark) .ambient-orb-2 {
+            background-color: rgba(20, 184, 166, 0.20) !important;
+        }
+
+        html:not(.dark) .papers-grid-overlay {
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+        }
+
+        /* Light Mode Card: Gray (distinctly gray card on top of the bright light background) */
+        html:not(.dark) .ngp6-glass {
+            background: rgba(226, 232, 240, 0.92) !important;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid #94a3b8 !important;
+            box-shadow: 0 22px 48px -12px rgba(15, 23, 42, 0.18), 0 4px 16px -2px rgba(15, 23, 42, 0.08) !important;
+        }
+
+        /* Light mode surface & card overrides */
+        html:not(.dark) #app-card .text-white:not(.glow-button-primary *):not(.glow-button-emerald *) {
+            color: #0f172a !important;
+        }
+        html:not(.dark) .glow-button-primary,
+        html:not(.dark) .glow-button-primary span,
+        html:not(.dark) .glow-button-emerald,
+        html:not(.dark) .glow-button-emerald span {
+            color: #ffffff !important;
+        }
+
+        html:not(.dark) #app-card .text-slate-200,
+        html:not(.dark) #ad-modal-overlay .text-slate-200 {
+            color: #1e293b !important;
+        }
+        html:not(.dark) #app-card .text-slate-300,
+        html:not(.dark) #ad-modal-overlay .text-slate-300 {
+            color: #334155 !important;
+        }
+        html:not(.dark) #app-card .text-slate-400,
+        html:not(.dark) #ad-modal-overlay .text-slate-400 {
+            color: #475569 !important;
+        }
+        html:not(.dark) #app-card .text-slate-500 {
+            color: #64748b !important;
+        }
+        html:not(.dark) #app-card .text-slate-700 {
+            color: #cbd5e1 !important;
+        }
+
+        /* Light mode accents for high contrast readability */
+        html:not(.dark) #app-card .text-cyan-400,
+        html:not(.dark) #app-card .text-cyan-300:not(.glow-button-primary *),
+        html:not(.dark) header .header-badge {
+            color: #0369a1 !important;
+        }
+        html:not(.dark) header .header-badge {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-color: rgba(14, 165, 233, 0.35) !important;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.12) !important;
+        }
+        html:not(.dark) #app-card .text-teal-400,
+        html:not(.dark) #app-card .text-teal-300:not(.glow-button-emerald *) {
+            color: #0f766e !important;
+        }
+
+        /* Light mode interactive buttons & year cards */
+        html:not(.dark) #app-card .bg-slate-800\/60,
+        html:not(.dark) #app-card .bg-slate-800\/90 {
+            background-color: rgba(248, 250, 252, 0.95) !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+        html:not(.dark) #app-card .bg-slate-800\/60:hover,
+        html:not(.dark) #app-card .bg-slate-800\/90:hover {
+            background-color: #e0f2fe !important;
+            border-color: #38bdf8 !important;
+            color: #0369a1 !important;
+        }
+        html:not(.dark) #app-card .bg-slate-900\/80 {
+            background-color: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+        }
+        html:not(.dark) #app-card .border-slate-800\/80,
+        html:not(.dark) #app-card .border-slate-800\/60,
+        html:not(.dark) #app-card .border-slate-800 {
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Light mode Ad Modal */
+        html:not(.dark) #ad-modal-overlay > div {
+            background-color: #ffffff !important;
+            border-color: rgba(14, 165, 233, 0.35) !important;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+        }
+        html:not(.dark) #ad-modal-overlay .border-slate-800,
+        html:not(.dark) #ad-modal-overlay .border-slate-800\/80 {
+            border-color: #e2e8f0 !important;
+        }
+        html:not(.dark) #ad-modal-overlay #skip-ad-btn:disabled {
+            background-color: #f1f5f9 !important;
+            color: #94a3b8 !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Theme switcher pill & mini counters styling */
+        .theme-switcher-pill {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        html:not(.dark) .theme-switcher-pill {
+            background: rgba(226, 232, 240, 0.95);
+            border: 1px solid #94a3b8;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+        }
+
+        .stats-mini-box {
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        html:not(.dark) .stats-mini-box {
+            background: rgba(226, 232, 240, 0.92);
+            border: 1px solid #94a3b8;
+            color: #334155;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+        }
+        html:not(.dark) #counter-website-visits {
+            color: #0369a1 !important;
+        }
+        html:not(.dark) #counter-ol-views {
+            color: #0f766e !important;
+        }
+        html:not(.dark) #counter-al-views {
+            color: #1d4ed8 !important;
+        }
+
+        html:not(.dark) ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+        html:not(.dark) ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+        }
+        html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -120,14 +319,49 @@
 </head>
 <body class="min-h-screen bg-glow flex flex-col items-center justify-center p-3 sm:p-6 text-slate-200 relative overflow-x-hidden">
 
-    <!-- Background glowing ambient lights -->
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full filter blur-[120px] pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-[120px] pointer-events-none"></div>
+    <!-- Animated Papers Hub Background (Canvas + Grid + Ambient Glows) -->
+    <div class="fixed inset-0 papers-grid-overlay pointer-events-none z-0"></div>
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full filter blur-[120px] pointer-events-none ambient-orb-1 z-0"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full filter blur-[120px] pointer-events-none ambient-orb-2 z-0"></div>
+    <canvas id="papers-bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <header class="mb-6 text-center z-10 max-w-md w-full">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-400 text-xs font-semibold shadow-lg shadow-cyan-500/10">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            NGP6 OFFICIAL PORTAL
+    <!-- Top-Right Corner Icon-Only Theme Switcher & Mini Counters -->
+    <div class="fixed top-3 right-3 sm:top-4 sm:right-5 z-40 flex flex-col items-end gap-1.5">
+        <div class="theme-switcher-pill inline-flex items-center gap-1 p-1 rounded-full shadow-lg transition-all" role="group" aria-label="Theme Mode Switcher">
+            <button id="theme-dark-btn" type="button" onclick="setThemeMode('dark')" 
+                class="flex items-center justify-center w-8 h-8 rounded-full transition-all bg-cyan-500 text-slate-950 shadow-sm"
+                title="Dark Mode" aria-label="Dark Mode">
+                <i data-lucide="moon" class="w-4 h-4"></i>
+            </button>
+            <button id="theme-light-btn" type="button" onclick="setThemeMode('light')" 
+                class="flex items-center justify-center w-8 h-8 rounded-full transition-all text-slate-400 hover:text-slate-200"
+                title="Light Mode" aria-label="Light Mode">
+                <i data-lucide="sun" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- Compact Counters Below Mode Switcher -->
+        <div class="stats-mini-box px-2.5 py-1.5 rounded-xl text-[10px] leading-tight font-medium shadow-md transition-all flex flex-col gap-1 text-right select-none">
+            <div class="flex items-center justify-between gap-2">
+                <span>Website Visits :</span>
+                <span id="counter-website-visits" class="font-bold text-cyan-400 tabular-nums">1200</span>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+                <span>O/L Paper views :</span>
+                <span id="counter-ol-views" class="font-bold text-teal-400 tabular-nums">750</span>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+                <span>A/L Paper views :</span>
+                <span id="counter-al-views" class="font-bold text-blue-400 tabular-nums">500</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centered Header Above Card with Larger Font Size -->
+    <header class="mb-6 text-center z-10 max-w-md w-full flex justify-center">
+        <div class="header-badge inline-flex items-center justify-center gap-2.5 px-5 py-2 rounded-full bg-slate-900/90 border border-cyan-500/35 text-cyan-400 text-base sm:text-lg font-bold tracking-wide shadow-lg shadow-cyan-500/10 transition-all">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shrink-0"></span>
+            <span>Term Tests and Past Papers</span>
         </div>
     </header>
 
@@ -141,9 +375,9 @@
             <div class="flex justify-center space-x-3 text-slate-400 font-medium">
                 <a href="https://ngp6.com" target="_blank" class="hover:underline hover:text-cyan-400 transition-colors">About NGP6</a>
                 <span>•</span>
-                <a href="#" class="hover:underline hover:text-cyan-400 transition-colors">Privacy Policy</a>
+                <a href="#" onclick="showToast('Privacy Policy: NGP6 Past Papers & Term Tests Hub'); return false;" class="hover:underline hover:text-cyan-400 transition-colors">Privacy Policy</a>
                 <span>•</span>
-                <a href="#" class="hover:underline hover:text-cyan-400 transition-colors">Contact Us</a>
+                <a href="#" onclick="showToast('Contact Us via NGP6 Official Channels'); return false;" class="hover:underline hover:text-cyan-400 transition-colors">Contact Us</a>
             </div>
             <p class="text-[11px] text-slate-500">© 2026 <span class="text-cyan-400 font-semibold">NGP6</span> - All Rights Reserved</p>
         </div>
@@ -441,11 +675,318 @@
             '2019_Political Science_MCQ Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,23,S,I,II-04232020110958.pdf',
             '2019_Political Science_Essay Paper': 'https://www.doenets.lk/documents/past-papers/2019,AL,NEW,23,S,I,II-04232020110958.pdf',
             
-            // A/L Grade 12 & 13 Examples
-            '2023_Physics_Grade 12_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_G12_PROV_WP_ID/view?usp=sharing',
-            '2023_Physics_Grade 12_School_1st Term_Royal College': 'https://drive.google.com/file/d/YOUR_G12_SCHOOL_ROYAL_ID/view?usp=sharing',
-            '2023_Physics_Grade 13_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_G13_PROV_WP_ID/view?usp=sharing',
-            '2023_Physics_Grade 13_School_1st Term_Royal College': 'https://drive.google.com/file/d/YOUR_G13_SCHOOL_ROYAL_ID/view?usp=sharing',
+            // ===========================================
+            // A/L Grade 12 & 13 Term Papers (Google Drive)
+            // ===========================================
+
+            // --- Biology - Grade 12 ---
+            '2023_Biology_Grade 12_School_1st Term_Sirimavo Bandaranaike Vidyalaya': 'https://drive.google.com/file/d/1RezXg4vSpPIOrskvUdA10Dw2FYNjA5dr/view?usp=sharing',
+            '2023_Biology_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/105ds_I9tr1u_MxjbM9G-MojzMgR94uJ6/view?usp=sharing',
+            '2023_Biology_Grade 12_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/10hzP_PPzLVHWzhjRXdMIMa-girS6pON-/view?usp=sharing',
+            '2022_Biology_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/11rUXq3S_7yODfZ9zTL0s0wER8faEr-ej/view?usp=sharing',
+            '2022_Biology_Grade 12_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1dUlvei3iPOEuj7TJ0lFCBKyyXQaS2ojQ/view?usp=sharing',
+            '2021_Biology_Grade 12_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/17BAnoDmkQkWfkUZVQAQ55pkIgipYzN2d/view?usp=sharing',
+            '2021_Biology_Grade 12_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/12gDICEPdmoYMB2d1v0fTSbKHPJv04OA0/view?usp=sharing',
+            '2020_Biology_Grade 12_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/1q503KvG-JGDvWW4NjFVyE8qGxwMrsMcy/view?usp=sharing',
+            '2020_Biology_Grade 12_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1ExcJEbmsY_iGzYZvCR4-4Ku6BrEUW11s/view?usp=sharing',
+            '2020_Biology_Grade 12_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1F3LDFRAK0ytE7gkaSSgqx5t5WdWNHZsh/view?usp=sharing',
+            '2019_Biology_Grade 12_School_2nd Term_Nalanda College': 'https://drive.google.com/file/d/1uIny0ZkVmtBI0GZ76H377IsjtGNNyYbt/view?usp=sharing',
+            '2018_Biology_Grade 12_School_3rd Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1LmWnQi_it9nKC6na1gfiPFKgGKK-qGKq/view?usp=sharing',
+            '2018_Biology_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1gi-VNf0EHUx39EzfmeJmHtRHz3fQYLh5/view?usp=sharing',
+            '2018_Biology_Grade 12_School_2nd Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1g1sKGutCFRnraMtk7a_X305D0XX-A0ZJ/view?usp=sharing',
+            '2018_Biology_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1gLZmIehMJilvZZtmhJWvisSSUCkOYRNf/view?usp=sharing',
+            '2018_Biology_Grade 12_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/156tHFQ6KKUEFysoQk1Qx5Lhhpj6ORx9K/view?usp=sharing',
+
+            // --- Biology - Grade 13 ---
+            '2024_Biology_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1pL9kXN6MUmQf0c2wZABE4u-BalWinKUJ/view?usp=sharing',
+            '2024_Biology_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1RZBVGdC-xf4CJLjaMzGTYXVeOX9iZZfA/view?usp=sharing',
+            '2024_Biology_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1FZUet7_pEObveZI_JRqKD161eoLJ1LSn/view?usp=sharing',
+            '2024_Biology_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1JksT7Tjf6z6vkVKwaNaNZBs9wRvTlvS-/view?usp=sharing',
+            '2024_Biology_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1lvHHGm9XYPxj_wXVn15frehipcqAf_pM/view?usp=sharing',
+            '2024_Biology_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1lFf-Q_YMb4cfoPe6nxcM3r3eki0xrS-c/view?usp=sharing',
+            '2023_Biology_Grade 13_School_3rd Term_Royal Central College Polonnaruwa': 'https://drive.google.com/file/d/1QzwQjFrSxC8KXPbfv_LeniSVj56G9-VB/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Taxila Central College Horana': 'https://drive.google.com/file/d/1JLiShRJJ1Z-O02nh0H4eLO9hmjfZ-d_6/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Seethawaka National School Avissawella': 'https://drive.google.com/file/d/1f9sP1DJlIdgf4-p9yDfB-c9xFsaYcS3I/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1xm3eVY-0Mjfxto4thI0OqLiBlWsIuGjy/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Mahanama College': 'https://drive.google.com/file/d/1SqS45MiTu_FOtekghIvwP9YXxCGit-iT/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Ferguson High School Ratnapura': 'https://drive.google.com/file/d/13D7Csi9WSh44kbmkxwYNC39JT7laZqkY/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Dharmapala Vidyalaya Pannipitiya': 'https://drive.google.com/file/d/12ZU0yI0iAF8yJzRK1I7wwkaDOMLmSlCH/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1Uh-7XFEOCf0n67xTM1p1nqfrk354JXZM/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Badulla Central College': 'https://drive.google.com/file/d/1YB5GtnbYqF78qf8WvR9VNDJlfhETtr5b/view?usp=sharing',
+            '2023_Biology_Grade 13_School_1st Term_Anula Vidyalaya Nugegoda': 'https://drive.google.com/file/d/1pm9rp6JAlXr_t_-1pE417cZ87kr_n5ye/view?usp=sharing',
+            '2023_Biology_Grade 13_Provincial_1st Term_North Central Province': 'https://drive.google.com/file/d/1TpP56T_25eTeadxtgxqYRySluNB7-CEp/view?usp=sharing',
+            '2022_Biology_Grade 13_School_2nd Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1KYfMjDCVttnR7WlkFvlxJ1LNwbTq-V3Y/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1WYcG4et3s08fimpqFv3FP1CrGRlPVWuh/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1H0mO3vSi_C93z2EWeCRGaLOAkz2XyBuH/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/12ak1pEnhA-BOQ_U7TOSeZ0EHTIRZczcS/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1r11s6C7KOaWEsRUHDKADO3spTFhgH3NL/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1vdwnXkkVACP-rwuDrTb7AcVfI2gMNPhl/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1WZZ_wd644w0HNhAdbwa81hBGUou58NdR/view?usp=sharing',
+            '2022_Biology_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1wjsGuLYY9WP0-x3HaXvE_CuOW0AUelN7/view?usp=sharing',
+            '2021_Biology_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1aD2zEayoUtHhqY6CuCCKX8Q5_qm_0Jk5/view?usp=sharing',
+            '2021_Biology_Grade 13_School_3rd Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1lRC12ZbeQOA5nC95uMi_9a1pjX5A_JaM/view?usp=sharing',
+            '2021_Biology_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1cb6rS175DP9ncDi9_9NutBftieWfgaFW/view?usp=sharing',
+            '2021_Biology_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1jXzLzacVSnYJwZ-uCUZt1mNWcBEJ4iw-/view?usp=sharing',
+            '2021_Biology_Grade 13_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1GrWWmsff7RwgdS3juMVM8-ssIIfoNjxt/view?usp=sharing',
+            '2021_Biology_Grade 13_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1jtHGOO-gKcI7RoBIz85NfHzxRoHrpNB7/view?usp=sharing',
+            '2021_Biology_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/15mn3taHavoR0KL7a2IPOF7u31o5NC_VA/view?usp=sharing',
+            '2021_Biology_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1ucY8pcFDcAjbg03NuhfGfOngmZuQclzN/view?usp=sharing',
+            '2020_Biology_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1f-smvKbWa7pCMXKc3e4rTKSN3tnRjWZy/view?usp=sharing',
+            '2020_Biology_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1MdJcVUsxT-hwpd6-eHmEygSf4IKc8GRS/view?usp=sharing',
+            '2020_Biology_Grade 13_School_2nd Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1KDKW-Kn3zklnjeNf_CAMYNRY1BoQJCjm/view?usp=sharing',
+            '2020_Biology_Grade 13_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/19JUydxvmhqzp-beW5u4UZKihz8wrg2mZ/view?usp=sharing',
+            '2020_Biology_Grade 13_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1XcfM6A59eoJX-KS7WeOb_LgSk4i8phXa/view?usp=sharing',
+            '2018_Biology_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1lSODA-KWr8-uxyrY7AfFWLsqmG0iXpfX/view?usp=sharing',
+            '2018_Biology_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1vuNFvn5sax5o6aNEKCr4AyULo_GBfxuX/view?usp=sharing',
+            '2018_Biology_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1scGDEImuW3uCTHPqICvWOrj8Hly-2swn/view?usp=sharing',
+            '2018_Biology_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1Usd7bovboiPX9OBO3p3s1f212Nz83CLP/view?usp=sharing',
+
+            // --- Chemistry - Grade 12 ---
+            '2023_Chemistry_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1FCCAFoxjL8M7BOBdXXU7fLqE4R_jVIiq/view?usp=sharing',
+            '2023_Chemistry_Grade 12_School_1st Term_Pinnawala Central College': 'https://drive.google.com/file/d/1pfy40Pvc9jux0jYfrJYkmoqwlrUsIBxs/view?usp=sharing',
+            '2023_Chemistry_Grade 12_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/1ffdqFVrSjogOroBC3xYN1osMaKy2-p-6/view?usp=sharing',
+            '2023_Chemistry_Grade 12_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1epKonghCCuym5hzkneftd60TmHL_mc0a/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_3rd Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1cR83nupowm8AHl68pMfYY4IC7St7CpvL/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1D8VwdSVoPuC58fpon3cGdFuS52qEHz9A/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1ynXNg4RO4yd0Wp730DrGGhO-ek_QlaB8/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1YsYR8VG-kAQ-Z-VZnm4Pwj8Z5sDTBzic/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_2nd Term_Mahinda Rajapaksha College Homagama': 'https://drive.google.com/file/d/1FcbRD6TawUpr3edS48O5AooKfP433cYM/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1j6YcPeJ7YxyWg9sNay7HMN3XJPuxP1lc/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/174Oux4xuMyJkIf44P6Cnwl7TAs2Z8mXH/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_1st Term_Mahanama College': 'https://drive.google.com/file/d/1KxHOc6gbJD_VZvrkhqk_5Anpz32IRl5T/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_1st Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1gozqfTZL-jRucO3XkLLXeXS32mXPkb-H/view?usp=sharing',
+            '2022_Chemistry_Grade 12_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1LiHzsui_x2odHZuEcRAzHh3qXwZEqXTe/view?usp=sharing',
+            '2021_Chemistry_Grade 12_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1R32gL12hoW9F7lPYM6_0s3Ut91rwsdA_/view?usp=sharing',
+            '2021_Chemistry_Grade 12_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1Fkt8QEosET_FpDWETyIo7Qid0TaJWjw4/view?usp=sharing',
+            '2021_Chemistry_Grade 12_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1spPgzmJeUsNkPksFXm6vuW2KcCsshD8g/view?usp=sharing',
+            '2020_Chemistry_Grade 12_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/1u-HilYfDaKIPwXUsb2g9XrrQ23RrZj55/view?usp=sharing',
+            '2020_Chemistry_Grade 12_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/12XHQxfcZ2ETmZ_xndvt31V4qBylMrGkh/view?usp=sharing',
+            '2020_Chemistry_Grade 12_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1CK4t6TQpc_MD2SVyqtCn-ic-4hsRTc4P/view?usp=sharing',
+            '2019_Chemistry_Grade 12_School_2nd Term_Nalanda College': 'https://drive.google.com/file/d/1wygd6K20G4hX4p7sDbk9VGLKBp4SJUDV/view?usp=sharing',
+            '2019_Chemistry_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1qX8xA5qNyo1K0GuGN8dUjhmq2Hx_nMy6/view?usp=sharing',
+            '2019_Chemistry_Grade 12_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/14eutOI0JOtVY35u_2xIQNPl7grQmeYlV/view?usp=sharing',
+            '2019_Chemistry_Grade 12_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1XDOun-2Dx7P9ITif-CtNxCL7Q-e_g_UU/view?usp=sharing',
+            '2018_Chemistry_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1jXCVonNvYiM2ed6nVuICXZQY_Oe5MlZh/view?usp=sharing',
+            '2018_Chemistry_Grade 12_School_2nd Term_Nalanda College': 'https://drive.google.com/file/d/13eVRAmu42DA_ru2iBiAvTolw_o9tqucp/view?usp=sharing',
+            '2018_Chemistry_Grade 12_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/1E7ZSKDRRlPuujmK4e64auZr1A78yGaHC/view?usp=sharing',
+            '2017_Chemistry_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1ncaabdb5nfNwqYkbpvM_qI7D_REPUY7A/view?usp=sharing',
+
+            // --- Chemistry - Grade 13 ---
+            '2023_Chemistry_Grade 13_School_3rd Term_Royal Central College Polonnaruwa': 'https://drive.google.com/file/d/1jGD6Ul_bAjN8s5k73ooxUV87tPmrq2dN/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/15pPNUxz5XKoViDtP-egH98scpZKR0nut/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Taxila Central College Horana': 'https://drive.google.com/file/d/1PE40hdVs1g2-li7X-LW0IwxMlZbJTVqR/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Sripalee National School Horana': 'https://drive.google.com/file/d/1eg8D2EESUmUb8aDyvnibPX1qduNuPMgf/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Seethawaka National School Avissawella': 'https://drive.google.com/file/d/1v47pMlGJEwlQbxkyCJfdjQALWWm2GOsO/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1eG_RegwburhFdQOHmXxd1HlKqHkjnJtC/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Mahanama College': 'https://drive.google.com/file/d/1CUJhwhBy5PhKlf-LsGNug-rTLDHtRcQC/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Mahamaya Girls College Kandy': 'https://drive.google.com/file/d/1fxAlm0q07nHSFNZdsRjJeDvn41wZfu2q/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Ferguson High School Ratnapura': 'https://drive.google.com/file/d/1EGHWXx9odkXsoejLWNOH551at5PX2wnG/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Dharmapala Vidyalaya Pannipitiya': 'https://drive.google.com/file/d/1zokwfUY39_pIl4zSsWYm6Ta5xygCNgcL/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Badulla Central College': 'https://drive.google.com/file/d/1B1EQU2SWX4E402sPEI68J4g0gO3XRgDu/view?usp=sharing',
+            '2023_Chemistry_Grade 13_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1_U3vsPHWb1PJuZYSyN4PlEQpa_zSz34p/view?usp=sharing',
+            '2023_Chemistry_Grade 13_Provincial_1st Term_North Central Province': 'https://drive.google.com/file/d/1c8u5h2EppNTOFpPqYKFs-4e3Q7NdFb7K/view?usp=sharing',
+            '2022_Chemistry_Grade 13_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1xdcGmDKLJZ11hPb8X8_G3-FMVfiSwnLV/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/10YFzWyFA_LoTe9qmKr2sztBwhxqxT7Su/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1f2oSyyu3FTRB9Sf29inM53rDFKc-kmDg/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1CYE8Unkbyf9nDHBtaSB1mCEstd3pU6um/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1c1R3zDvjZ9RkdUTMFWElywmZgvf3c46P/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1dwZode-h-Wzb4hlpvgQ4j8lxuUzmrqzd/view?usp=sharing',
+            '2022_Chemistry_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1pcaIpHvPLzi-sh2qxFCBBsRWal9yQJma/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1RZiu01hSZtUONZSGewuo1G6EHXWnpVBo/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1mrhoOzuvSHGsfEWtRocXzTW_Nmd-mpTN/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_3rd Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1YFc_INZeUNgUuJqmylARvZ9sLyIu0gtS/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1MpgdxgjQ5b8hqBNCYFl6dqD0B2EeXvQA/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1WsrM-AuMmPZoc8wZ6PkDWHTlqKdLerdr/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/13SaRO-gfCyq7O5F_t4j70McXRNZtp4H_/view?usp=sharing',
+            '2021_Chemistry_Grade 13_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1KCMxRAxiOZnnGITftuJxXFIavNZVdfXj/view?usp=sharing',
+            '2021_Chemistry_Grade 13_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/1gGTadzLUFpCOWA0sfoYhpr0J7R4HTClY/view?usp=sharing',
+            '2021_Chemistry_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1OpMxMoG6PNQiwFGdh_1LmhwK642EuQj_/view?usp=sharing',
+            '2021_Chemistry_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/12no3U-wSrNcmGusRMh4h1sN0YEjnL2w_/view?usp=sharing',
+            '2021_Chemistry_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/16JAjxvqsTWMcKdSCATpJFpYMt65uRMBk/view?usp=sharing',
+            '2021_Chemistry_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1f4j3g_YDFcxEVyjdcQPqO0Dv4rg1rRhQ/view?usp=sharing',
+            '2020_Chemistry_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1EwgVSPZNwnuMJj6FgP7Ec-4b9XRuvFtT/view?usp=sharing',
+            '2020_Chemistry_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1Hp4xn39Ww6xQ6U4zuhzFkZxTiivPXCoj/view?usp=sharing',
+            '2020_Chemistry_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1ApsaHFsJLqj7f7P-FDpf0QudAaqnExns/view?usp=sharing',
+            '2020_Chemistry_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1OG9gYrLE1WlBrF-4Sx4Cs-q0-osiyRVa/view?usp=sharing',
+            '2020_Chemistry_Grade 13_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1cZ7r6mnJW8t4A-ryVEu9nK0Og6NIuLIV/view?usp=sharing',
+            '2020_Chemistry_Grade 13_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/10mYV5C54-GJF-yCstpbx5VFFuNKLVitY/view?usp=sharing',
+            '2019_Chemistry_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1AFPcp-5PXPjzB3wJDM55UlpxhD-Vcqaq/view?usp=sharing',
+            '2019_Chemistry_Grade 13_School_2nd Term_Nalanda College': 'https://drive.google.com/file/d/1BERfcv5QU-sYdH0HYcXmfNNjd9nCeY1e/view?usp=sharing',
+            '2019_Chemistry_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1JCZuc0K1X-CGQIr2rU29b8qnxVQLAV8W/view?usp=sharing',
+            '2018_Chemistry_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1l4gGUbtKx-hUKt6tbeEm3PBtaLLgBOEG/view?usp=sharing',
+            '2018_Chemistry_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1JqeJIkPfspE8JMTwtto9ullg03nZCqVZ/view?usp=sharing',
+            '2018_Chemistry_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1ENWPCM-LksaRGeeUZsJv07gCh4zkZ--h/view?usp=sharing',
+            '2018_Chemistry_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/12oSheytJN2du3rgWhEfNxMprQCqTDihH/view?usp=sharing',
+            '2018_Chemistry_Grade 13_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/1c-Vw6l0hEcqyREtTHZqkfItT1bEFaCdo/view?usp=sharing',
+            '2017_Chemistry_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1rzRtl9-NYNQD9ArzqsLvH3-umoUQ5O7Y/view?usp=sharing',
+            '2017_Chemistry_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1skA1oEptiOrx2M-uOhHZZRbuDlzJDqal/view?usp=sharing',
+            '2017_Chemistry_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1ID8n0gSldYtlemmEqJubWRcRhiXf5ruZ/view?usp=sharing',
+            '2017_Chemistry_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/18qyKqLo7LfEsu5pg5BMx5v620MwxWowH/view?usp=sharing',
+            '2017_Chemistry_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1LjGXEojKZiHxDlCDz2ZKxVIFNwxWIPc8/view?usp=sharing',
+            '2016_Chemistry_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1UreX-fqF4AfYbUAEDXYefm4WY_Py9haT/view?usp=sharing',
+            '2016_Chemistry_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1DC3B_GmOf2WaaaKKaxoothI7KSZp-fcA/view?usp=sharing',
+            '2016_Chemistry_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1_pXpQbufLX6AjS7QAw5DIEErNdjB9q_9/view?usp=sharing',
+            '2016_Chemistry_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1ZAS0JjBtFN46imp1bZdegoaokml40Re0/view?usp=sharing',
+            '2015_Chemistry_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1wBBRjH-1mC_UO63EBq3Mjeaiq37_-Fvk/view?usp=sharing',
+            '2012_Chemistry_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/18kbHc-56l6DREwGBSsV0hI3WfJUkJHYw/view?usp=sharing',
+            '2012_Chemistry_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1hhIbJLbbfMe6V6heVfN2SVjiSHhFZyq7/view?usp=sharing',
+
+            // --- Combined Maths - Grade 12 ---
+            '2023_Combined Maths_Grade 12_School_3rd Term_Bandaranayake College Gampaha': 'https://drive.google.com/file/d/1zIwMON-MAbcgUeEurFMbZt2J39U8dIdh/view?usp=sharing',
+            '2023_Combined Maths_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1UB920V6EajCpi3RxyD4WyQFW_WVOAbzi/view?usp=sharing',
+            '2023_Combined Maths_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1QLqH-1DsU2V74_11myybaxBNgO2v6C_x/view?usp=sharing',
+            '2023_Combined Maths_Grade 12_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/1MAiapySZnhDr-QJdJqbEoZeNVuQjkj8t/view?usp=sharing',
+            '2022_Combined Maths_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1lhuulg_8Frtx88MyT4DhJWqUDrO9H8Xh/view?usp=sharing',
+            '2021_Combined Maths_Grade 12_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1y_jgtxpuFHqjPngqxn6F2H63DJirsmsY/view?usp=sharing',
+            '2020_Combined Maths_Grade 12_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/1MxvpO8ug2Qa-i7ZjiYI6lgJmiwVVrO8t/view?usp=sharing',
+            '2020_Combined Maths_Grade 12_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/19vw1qOPKi9EbBveDi9hUT7-ytPkkEEWE/view?usp=sharing',
+            '2020_Combined Maths_Grade 12_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1a7fmfdGVjCyFs612Tq0KZTZJq54cxb3-/view?usp=sharing',
+            '2019_Combined Maths_Grade 12_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1cY7D4PvFe5h_FSDebD3fCbQxPR6bYC3H/view?usp=sharing',
+            '2018_Combined Maths_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1-qqmE6Hiqp3GH_YM6S0OhqKyijiblhi0/view?usp=sharing',
+            '2018_Combined Maths_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1Ld9noZG-o9-_TOqUEQrTKUsv8xfr_9Za/view?usp=sharing',
+            '2018_Combined Maths_Grade 12_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/1POJuMaionl5QXWncjy1vYhrK9HC15Gtn/view?usp=sharing',
+            '2018_Combined Maths_Grade 12_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1XvZk0EQsfxVgJF5oBdMxaP0RQgjVQrlw/view?usp=sharing',
+            '2018_Combined Maths_Grade 12_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1KnPY0xqAB6Ap2hgxESL36iRPrSCuCP4s/view?usp=sharing',
+            '2017_Combined Maths_Grade 12_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1CfD31vKKOAzA9gvLcJfmggGGQwn_fvxQ/view?usp=sharing',
+            '2017_Combined Maths_Grade 12_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1rT8KLgRbuIeTLEptfu1MeP2t2F1OavFl/view?usp=sharing',
+            '2017_Combined Maths_Grade 12_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/1Gyh8itbxH6xKS-hXNtdL9wzX40em01By/view?usp=sharing',
+            '2015_Combined Maths_Grade 12_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1XAswJY5mxODP6SNJpWdTikYFNnmcJiZe/view?usp=sharing',
+            '2014_Combined Maths_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1-h7OmcLi__nBAMg0Z4Djz-xYv1WAJ-kp/view?usp=sharing',
+            '2014_Combined Maths_Grade 12_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1WM6wU83M92dVJA_XH7b1d5i0DP-eBA8g/view?usp=sharing',
+            '2012_Combined Maths_Grade 12_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1W7GGlG_M6blDIazrorEsW1VHeNwlpIPH/view?usp=sharing',
+            '2007_Combined Maths_Grade 12_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/15QsPXJOzNne3HgNYSbWclQSSAFxyw2qm/view?usp=sharing',
+
+            // --- Combined Maths - Grade 13 ---
+            '2023_Combined Maths_Grade 13_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1cqxBXW8UeTmLspeP9TWJKkqXMckP0gNl/view?usp=sharing',
+            '2023_Combined Maths_Grade 13_School_1st Term_Taxila Central College Horana': 'https://drive.google.com/file/d/1pTXkb9Df4S6FMzbfjqBLqZrjHqJO9PUG/view?usp=sharing',
+            '2023_Combined Maths_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1CcpjMmXXO2TjlWBt32fmV0cgQUOuIc9t/view?usp=sharing',
+            '2023_Combined Maths_Grade 13_School_1st Term_Ananda College': 'https://drive.google.com/file/d/10fRVJLoPeNesEN75UxCFvA1gjPht7BiV/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1-aRwVsaozhXvvCEwKQI1hA3QoMkVUotk/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1m2QdKJQiGOFz0Vfj5YzCluiGs61jFE71/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1zzRq6iGExXhAqOAaqUaWlkery-2CJ1pw/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1vsXC7qUhm3FLx8dv77idnOtyIc4YSODV/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1633X2NrUXQy-7F0LxA_Zu9HQ8fCuUfvZ/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/1HySUCw_JTFK2KC9_rr0AWn_9wi5O4rS5/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/1dNVLRT-5LrqWTjn_4rCeE_tBGF-3fMnE/view?usp=sharing',
+            '2022_Combined Maths_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1jKsC8ZV67KtLFkYu4h2TpILstI06DTFX/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1l5rTLBOTOaQqK1ZbVIzaxzfFQWoEq3lr/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1oRVKUBpirRDgJWYEO7cXc2iHG_oiGYza/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1IIpgbx9P-A3puOt-F10FaeTnt-eqUj86/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1AAhJ06PKvY87Prg3BnYngp0qI6daNmTf/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1yTvPHW7QDhIqygECEf7hjkOwcya4BNTI/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1XwOGFS3osO_B7YZFXlc13KPHYHEnm1Jb/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/10Yx6ci9aS4bT676yuc4V_a56bxug1NKa/view?usp=sharing',
+            '2021_Combined Maths_Grade 13_Provincial_3rd Term_North Central Province': 'https://drive.google.com/file/d/167DbhRl92n-6HR7xn-dKESubCqpQyQo9/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1mU2PiXkjqGTvM9BLNQAvj3Xgncqkvnmi/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1S1x08rXhdP3NhfZjHa0QUyemWny_h7M0/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1DrlIM7DbH8VrpjGuj9iDkzyWwpGKpBFY/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1Bk5kvwBg4upjOPsQ1KOWBIeQadV97Kwb/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/12zbNEJmDmlBnCj6iEb1j5TzZw5_aEkfz/view?usp=sharing',
+            '2020_Combined Maths_Grade 13_Provincial_2nd Term_North Western Province': 'https://drive.google.com/file/d/1FkrGMLL0G2GebRpsKsd9bMivo_qCg4i7/view?usp=sharing',
+            '2019_Combined Maths_Grade 13_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/1yW7SMmTdqzYKk0znaAJooQ_jk6BrBklH/view?usp=sharing',
+            '2018_Combined Maths_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1WsBI12vKvYyawnKcIbv0FZ_H9r7L_uHU/view?usp=sharing',
+            '2016_Combined Maths_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1xsoLntO9YqgK1_5SpZcJJdccg-tNdtXn/view?usp=sharing',
+            '2016_Combined Maths_Grade 13_School_2nd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1Mzl7kuYGnzJUt-5Nf13LnoIYfmCTpzJ4/view?usp=sharing',
+            '2015_Combined Maths_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1DOvWeoJ7Q2BDorMfBUfCvWhNgdssqntI/view?usp=sharing',
+            '2012_Combined Maths_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1Hk44E2R7w1SJjAAgFvyblzxulThwWuwC/view?usp=sharing',
+            '2012_Combined Maths_Grade 13_School_2nd Term_Ananda College': 'https://drive.google.com/file/d/1s8c5-G6gUXQQzXsyNhSL3mvXf6UsdVJe/view?usp=sharing',
+
+            // --- Physics - Grade 12 ---
+            '2023_Physics_Grade 12_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1pVoi9sUgojGRqp1n9tUsj_BzmzocYw2Z/view?usp=sharing',
+            '2023_Physics_Grade 12_School_3rd Term_Bandaranayake College Gampaha': 'https://drive.google.com/file/d/1pnVCBtR9Wojp9gro94HfZlcyM7teobLe/view?usp=sharing',
+            '2023_Physics_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1hnozs5GC2QZwOZA1NZsF6mJFdlZnl3Ip/view?usp=sharing',
+            '2023_Physics_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1UnRyxjcEhjkHHLzc0lyS2VIGL28-RBDq/view?usp=sharing',
+            '2023_Physics_Grade 12_School_1st Term_Nalanda College': 'https://drive.google.com/file/d/1fsNZ8y8wwWzg_GnAQArs5sLbZocUyjyO/view?usp=sharing',
+            '2022_Physics_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/141zKGGABgG39bVJ4mUQeT5-LfZy07L7y/view?usp=sharing',
+            '2022_Physics_Grade 12_School_2nd Term_Sirimavo Bandaranaike Vidyalaya': 'https://drive.google.com/file/d/16T7P8g3ISwASedDVAistikf5QywgC7W5/view?usp=sharing',
+            '2022_Physics_Grade 12_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1MqXVFe2LujbuJasi9U_De3zeCWYxnfsa/view?usp=sharing',
+            '2022_Physics_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1Xe6hBBNQp8pjH72RHZgdpFM41BJRbTnc/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1njeHLtCEEf5sO9r9V27aETx_N_UjfWND/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1R7xAAEyU86Fsu6DMfuxmA01zJcEeAOHc/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Mahinda Rajapaksha College Homagama': 'https://drive.google.com/file/d/1_MZCdgW07ny9q5yK3JDZAI5Vmh_w5IRw/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Mahanama College': 'https://drive.google.com/file/d/1B4-7x2ISww64-eObuJaR_RW97vEBafEf/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1RZ7_SkZ5pTqcSaSGCBHmh18SoxTzlLWU/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1ZflgYjzwyD2VtqiDU71lXF1bkBg8qM2R/view?usp=sharing',
+            '2022_Physics_Grade 12_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1H_ORQsHjkWBewsFoNmgaTLC5ohzweXfk/view?usp=sharing',
+            '2022_Physics_Grade 12_Provincial_2nd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1pHYohnUaKfEab15x1rIbqqMpdrwR0uVp/view?usp=sharing',
+            '2021_Physics_Grade 12_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1n6enRxGKMMBqN4TRasuy0yaF05LhAWUC/view?usp=sharing',
+            '2020_Physics_Grade 12_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1NQtgwfGjNts9FvR3im3UfVtOLv0q1TqM/view?usp=sharing',
+            '2020_Physics_Grade 12_School_1st Term_Richmond College Galle': 'https://drive.google.com/file/d/168RuBXlgr6vMrVOCyWzhGv3pw3xMv02u/view?usp=sharing',
+            '2020_Physics_Grade 12_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1rGCpXuZBZY_RuNQaM1br-oirGR2ohdRY/view?usp=sharing',
+            '2019_Physics_Grade 12_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1duZdUUtZ3tpOIVfNC94nvm6en6ojRXUt/view?usp=sharing',
+            '2018_Physics_Grade 12_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1X5vmQQLovtU7X9vdND5qJIun1HkoebuY/view?usp=sharing',
+            '2018_Physics_Grade 12_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1XvlPegW4T_J9AW9vNmqkei1ONoE7IlN9/view?usp=sharing',
+            '2018_Physics_Grade 12_School_1st Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1IwAm7rOHk660PAqZSQR-IzFxsfgQRZqW/view?usp=sharing',
+            '2018_Physics_Grade 12_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/10Xb1_O4vairwnovSCxisEOOWP21w3tkW/view?usp=sharing',
+            '2018_Physics_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1XsMqJFf4FX6Fii9f5vihXgSTxz955dDv/view?usp=sharing',
+            '2018_Physics_Grade 12_School_1st Term_D.S. Senanayake College': 'https://drive.google.com/file/d/18peabUMfl1HCzvWEs8KcruX8NjcREBnt/view?usp=sharing',
+            '2018_Physics_Grade 12_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1rgB-lwwmBURaBx0_23ETG_mGUX_DXqqq/view?usp=sharing',
+            '2017_Physics_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1ThUcxmw_2yO6oNJKDeArZpiK30jRLIoH/view?usp=sharing',
+            '2017_Physics_Grade 12_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1IqY6BVgAHekTfz1AX1jScpgK5mgFWTWN/view?usp=sharing',
+            '2016_Physics_Grade 12_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1STphFHqJc6MwKmAFeMtGaBlyj3pR7E0N/view?usp=sharing',
+            '2016_Physics_Grade 12_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1MHRySDvW9p6OqZ22L9KNfwQpVx54LwnO/view?usp=sharing',
+            '2015_Physics_Grade 12_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1mgTdY6ww9HmIt2SstJqpsk7cZg9K0FIw/view?usp=sharing',
+
+            // --- Physics - Grade 13 ---
+            '2023_Physics_Grade 13_School_3rd Term_Royal Central College Polonnaruwa': 'https://drive.google.com/file/d/1dsdOPTtM0pSsPfH-hgKBW0mjN6He8ZEv/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Sripalee National School Horana': 'https://drive.google.com/file/d/1WLyJLyLjxm5GCO5H_vX-_haLkU1Icx4o/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Sivali Central College': 'https://drive.google.com/file/d/1987fn8ANroA0R-W3IZKJU_1PawDYnZqX/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Seethawaka National School Avissawella': 'https://drive.google.com/file/d/11_ul5z_AIaci4XSNUlrHd56VDkU0FULT/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Royal College Colombo': 'https://drive.google.com/file/d/1iXSp-bffexEOZneJQT0XuLc_sn7ifSab/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Mahanama College': 'https://drive.google.com/file/d/1g7mGA1-_jDimyb8uHD1U3h-OR2tAi68Z/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Mahamaya Girls College Kandy': 'https://drive.google.com/file/d/1T-jXSHCoQDwuXJvNbHyvnqSxjH1Ds7UG/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Ferguson High School Ratnapura': 'https://drive.google.com/file/d/1dDD8oU2tWXYWkoHUABiunKiN3_SyQ-k8/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Dharmapala Vidyalaya Pannipitiya': 'https://drive.google.com/file/d/1ymNI6yDuqjU0NRky_vKw9NxgItcyEA66/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1F9BOQLWayWEabitugHJL9Fh_tM7OU1bn/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Badulla Central College': 'https://drive.google.com/file/d/1DKLPi4gVFgCE7F5ZVt5dFIsH2x-70uB_/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Anula Vidyalaya Nugegoda': 'https://drive.google.com/file/d/17gOUJvoP9ifPp0FZbLnD9hwHpy-3ZFY3/view?usp=sharing',
+            '2023_Physics_Grade 13_School_1st Term_Ananda College': 'https://drive.google.com/file/d/1vS1Davmh1ikO31CUAdW9bhaNXbbN0DT0/view?usp=sharing',
+            '2023_Physics_Grade 13_Provincial_1st Term_North Central Province': 'https://drive.google.com/file/d/1lbol5cEt11lYYnuOi7hdn-orm_MQvg4S/view?usp=sharing',
+            '2022_Physics_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1G0-mJs4ZKJrMMx-aBYKShhp09CpisVxN/view?usp=sharing',
+            '2022_Physics_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1Z-nhh4ecPKfjTP00X54RQuaajiDCraVk/view?usp=sharing',
+            '2022_Physics_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1ouZB-6_2pQftz9SUNagchbVZv1DyKKVg/view?usp=sharing',
+            '2022_Physics_Grade 13_School_1st Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1D3ViLoBw6FmgASkiTSN7pF8foimNsB4A/view?usp=sharing',
+            '2022_Physics_Grade 13_Provincial_3rd Term_Western Province': 'https://drive.google.com/file/d/15eyEtPUv3cy5IyAVUkvt9GFmdCmbMKKR/view?usp=sharing',
+            '2022_Physics_Grade 13_Provincial_3rd Term_Uva Province': 'https://drive.google.com/file/d/1m1L5ecFb50nWQ9-8_g-KTTfupNQtlTpF/view?usp=sharing',
+            '2022_Physics_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1jy5qMW1EBmPXdTxJoH55k-hzzDFtC5tj/view?usp=sharing',
+            '2022_Physics_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1lN5zYVbL8yv_H0WYyhes0V347AXKTY9R/view?usp=sharing',
+            '2022_Physics_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1dYXEhKoVrLuD0fHTEw5-DD1wd2N4VZ6q/view?usp=sharing',
+            '2021_Physics_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1r40fzAi1F5y4ztYfdk7TU4LUw4vANa7_/view?usp=sharing',
+            '2021_Physics_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1S_rOwUSUJrrZs3kPADOuVWxbHTQyaEyr/view?usp=sharing',
+            '2021_Physics_Grade 13_School_3rd Term_Rathnavali Balika Vidyalaya': 'https://drive.google.com/file/d/1RBPhKZhs8YymkPx7J9MeHgpqLI4uqnmz/view?usp=sharing',
+            '2021_Physics_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1Ldb-dRdk1ee1ybhmM_BxxM2tNe8H3cGN/view?usp=sharing',
+            '2021_Physics_Grade 13_School_3rd Term_Mahanama College': 'https://drive.google.com/file/d/1O9Qc1aaGjZFYhUXjACHdvhLfKk52XvrY/view?usp=sharing',
+            '2021_Physics_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1LAtfWAIGIxLZTz_gB6fGN3YVtPzecvza/view?usp=sharing',
+            '2021_Physics_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1gn5JMu26f_m6IxcuZIEJZXDyBSOn8ipg/view?usp=sharing',
+            '2021_Physics_Grade 13_School_1st Term_Visakha Vidyalaya (Part 2)': 'https://drive.google.com/file/d/19Y7dkjRge6nvXjRGRygwWH13y9UO2am-/view?usp=sharing',
+            '2021_Physics_Grade 13_School_1st Term_Visakha Vidyalaya (Part 1)': 'https://drive.google.com/file/d/14r4rNfU912l6_RvOh_K8ZY_SGRTPnr5t/view?usp=sharing',
+            '2021_Physics_Grade 13_School_1st Term_Ananda College': 'https://drive.google.com/file/d/11bjpxa0sxeyuPKjc-paqymOVGIsjJlfn/view?usp=sharing',
+            '2021_Physics_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1Dd8kIM28Xu6LBDRDWYjp0FjIkDCVDH9s/view?usp=sharing',
+            '2021_Physics_Grade 13_Provincial_3rd Term_Sabaragamuwa Province': 'https://drive.google.com/file/d/1xb8rZWs5lmkAsTm3brfxMNG-OGKnAvX5/view?usp=sharing',
+            '2021_Physics_Grade 13_Provincial_3rd Term_North Western Province': 'https://drive.google.com/file/d/10UFfFUVk_aPVe7KptKZ1QCcBooz6VBey/view?usp=sharing',
+            '2021_Physics_Grade 13_Provincial_3rd Term_Central Province': 'https://drive.google.com/file/d/1XR5g4GBLd8jvFmsD-HnZfEt2dJU6YBaW/view?usp=sharing',
+            '2020_Physics_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1IjcbbzuH_s0KInMNbYhsH_ZtxamORJ15/view?usp=sharing',
+            '2020_Physics_Grade 13_School_2nd Term_Royal College Colombo': 'https://drive.google.com/file/d/1QvoiBUpPvD6S04Rzx8xuldArcwVdXHfD/view?usp=sharing',
+            '2020_Physics_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1TstqoEpjINkW_qmJtNoCN3xaiABT1Uw8/view?usp=sharing',
+            '2020_Physics_Grade 13_School_2nd Term_D.S. Senanayake College': 'https://drive.google.com/file/d/1tKkBFLjVQ8EXzGVmAk_b7_Mt_zdIXoOc/view?usp=sharing',
+            '2020_Physics_Grade 13_School_1st Term_Devi Balika College': 'https://drive.google.com/file/d/1GsHDG-Dp4Okk-xHjUmaaZuUffuCipOp4/view?usp=sharing',
+            '2020_Physics_Grade 13_Provincial_2nd Term_Southern Province': 'https://drive.google.com/file/d/1HxxpQPJAw8iBfx28L1fvD9z35P9dRy-D/view?usp=sharing',
+            '2019_Physics_Grade 13_Provincial_3rd Term_Southern Province': 'https://drive.google.com/file/d/1r7N1yhLpbSdLrnRT2B-lugDnsCH1EtPg/view?usp=sharing',
+            '2018_Physics_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1_5d1xBc4kFOz3LYdA4WrpgzzXZT26p0N/view?usp=sharing',
+            '2018_Physics_Grade 13_School_3rd Term_Nalanda College': 'https://drive.google.com/file/d/1rjS9-mIoOW2eHNbQsMLgmOkjWbfmBXkk/view?usp=sharing',
+            '2018_Physics_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1-3W13NHkHZEzcfnh3dR-B_5tMIRoAAe5/view?usp=sharing',
+            '2018_Physics_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/17AhEPVN1g4SUUI9ZIRfTXMevv45D8WIf/view?usp=sharing',
+            '2016_Physics_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1PsFIDFtXk0PD6ZQQLQ2zJIRnV8Gct2vs/view?usp=sharing',
+            '2015_Physics_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/1TP2a5brcGoZ8NUAtx_nv0WhrqusmDF_j/view?usp=sharing',
+            '2015_Physics_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/1MnDy7qP82RT1GmHTbZNKpDLh_W6QCOGV/view?usp=sharing',
+            '2014_Physics_Grade 13_School_3rd Term_Devi Balika College': 'https://drive.google.com/file/d/107zTPvAIccWJVUvE3Jc4ZBgbAXnFnAMR/view?usp=sharing',
+            '2014_Physics_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1qJkV0r_j5P4DwKqry5WFfIfgHsrLGqWh/view?usp=sharing',
+            '2013_Physics_Grade 13_School_3rd Term_Ananda College': 'https://drive.google.com/file/d/1g5V8p7Pc14cNWZ1Whn-KFiMDbB_dGOAz/view?usp=sharing',
+            '2012_Physics_Grade 13_School_3rd Term_Royal College Colombo': 'https://drive.google.com/file/d/15C8uWDAbWvm4oJHJE28Y97d4j4t0WTLn/view?usp=sharing',
+            '2012_Physics_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1jr9y99rrDmQ-cZIVI1H9V5NjSlhOy80b/view?usp=sharing',
+            '2011_Physics_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1SCwtEsYLq0xQtutIBRinA51TErsrc_E9/view?usp=sharing',
+            '2011_Physics_Grade 13_School_2nd Term_Devi Balika College': 'https://drive.google.com/file/d/1896O7XygPWo_OR6BlBNyroas5-RAKs6M/view?usp=sharing',
+            '2008_Physics_Grade 13_School_3rd Term_Visakha Vidyalaya': 'https://drive.google.com/file/d/1jzL17tvi96zlulrqfTp6hDAtNS6T8jka/view?usp=sharing',
 
             // O/L Grade 10 Examples
             '2023_Science (විද්‍යාව)_Grade 10_Provincial_1st Term_Western Province': 'https://drive.google.com/file/d/YOUR_OL_G10_PROV_ID/view?usp=sharing',
@@ -687,7 +1228,7 @@
             olTab: 'GRADE_11'   
         };
 
-        const years = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
+        const years = ['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2008', '2007'];
 
         const alStreamSubjects = {
             'Maths': [
@@ -766,14 +1307,32 @@
                 { key: 'Uva Province', label: 'Uva Province' },
                 { key: 'Mathugama Zone', label: 'Mathugama Education Zone' }
             ] : [
+                { key: 'Ananda College', label: 'Ananda College | Colombo' },
+                { key: 'Anula Vidyalaya Nugegoda', label: 'Anula Vidyalaya | Nugegoda' },
+                { key: 'Badulla Central College', label: 'Badulla Central College' },
+                { key: 'Bandaranayake College Gampaha', label: 'Bandaranayake College | Gampaha' },
+                { key: 'Devi Balika College', label: 'Devi Balika College | Colombo' },
+                { key: 'Dharmapala Vidyalaya Pannipitiya', label: 'Dharmapala Vidyalaya | Pannipitiya' },
+                { key: 'D.S. Senanayake College', label: 'D.S. Senanayake College | Colombo' },
+                { key: 'Ferguson High School Ratnapura', label: 'Ferguson High School | Ratnapura' },
+                { key: 'Jaffna Hindu College', label: 'Jaffna Hindu College' },
+                { key: 'Mahamaya Girls College Kandy', label: 'Mahamaya Girls College | Kandy' },
+                { key: 'Mahanama College', label: 'Mahanama College | Colombo' },
+                { key: 'Mahinda Rajapaksha College Homagama', label: 'Mahinda Rajapaksha College | Homagama' },
+                { key: 'Monaragala Royal College', label: 'Monaragala Royal College' },
+                { key: 'Nalanda College', label: 'Nalanda College | Colombo' },
+                { key: 'Pinnawala Central College', label: 'Pinnawala Central College' },
+                { key: 'Rathnavali Balika Vidyalaya', label: 'Rathnavali Balika Vidyalaya | Gampaha' },
+                { key: 'Richmond College Galle', label: 'Richmond College | Galle' },
+                { key: 'Royal Central College Polonnaruwa', label: 'Royal Central College | Polonnaruwa' },
                 { key: 'Royal College Colombo', label: 'Royal College | Colombo 07' },
                 { key: 'Royal College', label: 'Royal College | Colombo' },
-                { key: 'Nalanda College', label: 'Nalanda College | Colombo' },
+                { key: 'Seethawaka National School Avissawella', label: 'Seethawaka National School' },
+                { key: 'Sirimavo Bandaranaike Vidyalaya', label: 'Sirimavo Bandaranaike Vidyalaya | Colombo' },
+                { key: 'Sivali Central College', label: 'Sivali Central College | Ratnapura' },
+                { key: 'Sripalee National School Horana', label: 'Sripalee National School | Horana' },
+                { key: 'Taxila Central College Horana', label: 'Taxila Central College | Horana' },
                 { key: 'Visakha Vidyalaya', label: 'Visakha Vidyalaya | Colombo 05' },
-                { key: 'Bandaranayake College Gampaha', label: 'Bandaranayake College | Gampaha' },
-                { key: 'Richmond College Galle', label: 'Richmond College | Galle' },
-                { key: 'Jaffna Hindu College', label: 'Jaffna Hindu College' },
-                { key: 'Monaragala Royal College', label: 'Monaragala Royal College' },
                 { key: 'Mathugama Zone', label: 'Mathugama Education Zone' },
                 { key: 'North Western Province', label: 'North Western Province' }
             ];
@@ -1257,7 +1816,78 @@
         let adCountdownTimer = null;
         let currentActiveAd = null;
 
+        // ========================================================================
+        // 📊 COUNTERS MANAGEMENT (STARTING VALUES: VISITS=1200, O/L=750, A/L=500)
+        // ========================================================================
+        const INITIAL_VISITS = 1200;
+        const INITIAL_OL_VIEWS = 750;
+        const INITIAL_AL_VIEWS = 500;
+
+        let statsCounters = {
+            visits: INITIAL_VISITS,
+            olViews: INITIAL_OL_VIEWS,
+            alViews: INITIAL_AL_VIEWS
+        };
+
+        function loadAndIncrementVisitCounter() {
+            try {
+                const rawVisits = localStorage.getItem('ngp6_website_visits_v2');
+                const rawOl = localStorage.getItem('ngp6_ol_paper_views_v2');
+                const rawAl = localStorage.getItem('ngp6_al_paper_views_v2');
+
+                if (rawVisits === null) {
+                    statsCounters.visits = INITIAL_VISITS;
+                } else {
+                    const parsedVisits = parseInt(rawVisits, 10);
+                    statsCounters.visits = (isNaN(parsedVisits) || parsedVisits < INITIAL_VISITS) ? INITIAL_VISITS : parsedVisits + 1;
+                }
+
+                const parsedOl = parseInt(rawOl || String(INITIAL_OL_VIEWS), 10);
+                statsCounters.olViews = (isNaN(parsedOl) || parsedOl < INITIAL_OL_VIEWS) ? INITIAL_OL_VIEWS : parsedOl;
+
+                const parsedAl = parseInt(rawAl || String(INITIAL_AL_VIEWS), 10);
+                statsCounters.alViews = (isNaN(parsedAl) || parsedAl < INITIAL_AL_VIEWS) ? INITIAL_AL_VIEWS : parsedAl;
+
+                localStorage.setItem('ngp6_website_visits_v2', String(statsCounters.visits));
+                localStorage.setItem('ngp6_ol_paper_views_v2', String(statsCounters.olViews));
+                localStorage.setItem('ngp6_al_paper_views_v2', String(statsCounters.alViews));
+            } catch (e) {
+                statsCounters.visits = INITIAL_VISITS;
+                statsCounters.olViews = INITIAL_OL_VIEWS;
+                statsCounters.alViews = INITIAL_AL_VIEWS;
+            }
+            updateCountersDisplay();
+        }
+
+        function incrementPaperViewCounter(examType) {
+            if (examType === 'OL') {
+                statsCounters.olViews += 1;
+                try {
+                    localStorage.setItem('ngp6_ol_paper_views_v2', String(statsCounters.olViews));
+                } catch (e) {}
+            } else {
+                statsCounters.alViews += 1;
+                try {
+                    localStorage.setItem('ngp6_al_paper_views_v2', String(statsCounters.alViews));
+                } catch (e) {}
+            }
+            updateCountersDisplay();
+        }
+
+        function updateCountersDisplay() {
+            const visitEl = document.getElementById('counter-website-visits');
+            const olEl = document.getElementById('counter-ol-views');
+            const alEl = document.getElementById('counter-al-views');
+
+            if (visitEl) visitEl.textContent = String(statsCounters.visits);
+            if (olEl) olEl.textContent = String(statsCounters.olViews);
+            if (alEl) alEl.textContent = String(statsCounters.alViews);
+        }
+
         function downloadPaper(paperKey) {
+            const isOLPaper = currentStateData.exam === 'OL' || olSubjects.some(sub => paperKey.includes(sub.id));
+            incrementPaperViewCounter(isOLPaper ? 'OL' : 'AL');
+
             const link = paperLinks[paperKey];
             if (link && link.trim() !== "" && !link.includes("YOUR_")) {
                 currentTargetDownloadLink = link;
@@ -1441,8 +2071,266 @@
             }, 2500);
         }
 
+
+        // ========================================================================
+        // 🌗 THEME MODE MANAGEMENT (DEFAULT: DARK MODE)
+        // ========================================================================
+        let currentThemeMode = 'dark';
+
+        function setThemeMode(mode) {
+            currentThemeMode = mode === 'light' ? 'light' : 'dark';
+            const htmlEl = document.documentElement;
+            const bodyEl = document.body;
+            const darkBtn = document.getElementById('theme-dark-btn');
+            const lightBtn = document.getElementById('theme-light-btn');
+
+            if (currentThemeMode === 'dark') {
+                htmlEl.classList.add('dark');
+                htmlEl.style.backgroundColor = '#060913';
+                if (bodyEl) bodyEl.style.backgroundColor = '#060913';
+                if (darkBtn) {
+                    darkBtn.className = "flex items-center justify-center w-8 h-8 rounded-full transition-all bg-cyan-500 text-slate-950 shadow-sm";
+                }
+                if (lightBtn) {
+                    lightBtn.className = "flex items-center justify-center w-8 h-8 rounded-full transition-all text-slate-400 hover:text-slate-200";
+                }
+            } else {
+                htmlEl.classList.remove('dark');
+                htmlEl.style.backgroundColor = '#f8fafc';
+                if (bodyEl) bodyEl.style.backgroundColor = '#f8fafc';
+                if (lightBtn) {
+                    lightBtn.className = "flex items-center justify-center w-8 h-8 rounded-full transition-all bg-sky-500 text-white shadow-sm";
+                }
+                if (darkBtn) {
+                    darkBtn.className = "flex items-center justify-center w-8 h-8 rounded-full transition-all text-slate-500 hover:text-slate-900";
+                }
+            }
+        }
+
+        // ========================================================================
+        // ✨ PAPERS HUB ANIMATED BACKGROUND (PARTICLES, CONSTELLATIONS & MINI PAPERS)
+        // ========================================================================
+        let papersBgAnimId = null;
+
+        function initPapersHubBackground() {
+            const canvas = document.getElementById('papers-bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            const mouse = { x: null, y: null, radius: 130 };
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            const symbols = ['A+', '∑', 'π', '∫', '√x', 'Δ', 'Ω', 'MCQ', 'A/L', 'O/L', 'E=mc²', 'f(x)', '✓'];
+            const colors = [
+                'rgba(6, 182, 212, ',   // cyan-500
+                'rgba(59, 130, 246, ',  // blue-500
+                'rgba(20, 184, 166, ',  // teal-500
+                'rgba(99, 102, 241, '   // indigo-500
+            ];
+
+            let networkNodes = [];
+            let floatingItems = [];
+
+            function createSceneEntities() {
+                networkNodes = [];
+                floatingItems = [];
+
+                const nodeCount = Math.min(75, Math.max(32, Math.floor((width * height) / 18000)));
+                for (let i = 0; i < nodeCount; i++) {
+                    networkNodes.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.55,
+                        vy: (Math.random() - 0.5) * 0.55,
+                        radius: Math.random() * 2 + 1,
+                        colorPrefix: colors[Math.floor(Math.random() * colors.length)],
+                        alpha: Math.random() * 0.45 + 0.2,
+                        pulseSpeed: Math.random() * 0.02 + 0.01,
+                        pulsePhase: Math.random() * Math.PI * 2
+                    });
+                }
+
+                const itemCount = Math.min(26, Math.max(12, Math.floor((width * height) / 48000)));
+                for (let i = 0; i < itemCount; i++) {
+                    const isPaperSheet = i % 2 === 0;
+                    floatingItems.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vy: -(Math.random() * 0.35 + 0.15),
+                        vx: (Math.random() - 0.5) * 0.25,
+                        swayAmp: Math.random() * 0.4 + 0.1,
+                        swaySpeed: Math.random() * 0.015 + 0.005,
+                        swayOffset: Math.random() * Math.PI * 2,
+                        rotation: (Math.random() - 0.5) * 0.5,
+                        rotSpeed: (Math.random() - 0.5) * 0.003,
+                        type: isPaperSheet ? 'paper' : 'symbol',
+                        symbol: symbols[i % symbols.length],
+                        size: isPaperSheet ? (Math.random() * 10 + 18) : (Math.random() * 5 + 11),
+                        colorPrefix: colors[i % colors.length],
+                        alpha: isPaperSheet ? (Math.random() * 0.16 + 0.08) : (Math.random() * 0.22 + 0.10)
+                    });
+                }
+            }
+
+            createSceneEntities();
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                createSceneEntities();
+            });
+
+            function drawMiniPaper(ctx, size, colorPrefix, baseAlpha) {
+                const alpha = currentThemeMode === 'light' ? Math.min(0.45, baseAlpha * 1.65) : baseAlpha;
+                const w = size;
+                const h = size * 1.32;
+                const fold = w * 0.28;
+
+                ctx.beginPath();
+                ctx.moveTo(-w / 2, -h / 2);
+                ctx.lineTo(w / 2 - fold, -h / 2);
+                ctx.lineTo(w / 2, -h / 2 + fold);
+                ctx.lineTo(w / 2, h / 2);
+                ctx.lineTo(-w / 2, h / 2);
+                ctx.closePath();
+
+                ctx.fillStyle = colorPrefix + (alpha * 0.25) + ')';
+                ctx.fill();
+                ctx.lineWidth = 1.1;
+                ctx.strokeStyle = colorPrefix + (alpha * 1.4) + ')';
+                ctx.stroke();
+
+                // Folded corner
+                ctx.beginPath();
+                ctx.moveTo(w / 2 - fold, -h / 2);
+                ctx.lineTo(w / 2 - fold, -h / 2 + fold);
+                ctx.lineTo(w / 2, -h / 2 + fold);
+                ctx.strokeStyle = colorPrefix + (alpha * 1.2) + ')';
+                ctx.stroke();
+
+                // Miniature text lines inside the paper
+                ctx.beginPath();
+                for (let lineIdx = 0; lineIdx < 3; lineIdx++) {
+                    const ly = -h * 0.12 + lineIdx * (h * 0.2);
+                    const lw = lineIdx === 2 ? w * 0.35 : w * 0.55;
+                    ctx.moveTo(-w * 0.28, ly);
+                    ctx.lineTo(-w * 0.28 + lw, ly);
+                }
+                ctx.strokeStyle = colorPrefix + (alpha * 1.3) + ')';
+                ctx.lineWidth = 0.9;
+                ctx.stroke();
+            }
+
+            let tick = 0;
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                tick++;
+
+                // 1. Update and draw floating mini papers & academic symbols
+                for (let i = 0; i < floatingItems.length; i++) {
+                    const item = floatingItems[i];
+                    item.y += item.vy;
+                    item.x += item.vx + Math.sin(tick * item.swaySpeed + item.swayOffset) * item.swayAmp;
+                    item.rotation += item.rotSpeed;
+
+                    if (item.y < -50) {
+                        item.y = height + 40;
+                        item.x = Math.random() * width;
+                    }
+                    if (item.x < -50) item.x = width + 40;
+                    if (item.x > width + 50) item.x = -40;
+
+                    ctx.save();
+                    ctx.translate(item.x, item.y);
+                    ctx.rotate(item.rotation);
+
+                    if (item.type === 'paper') {
+                        drawMiniPaper(ctx, item.size, item.colorPrefix, item.alpha);
+                    } else {
+                        const symAlpha = currentThemeMode === 'light' ? Math.min(0.45, item.alpha * 1.6) : item.alpha;
+                        ctx.font = `600 ${Math.round(item.size)}px 'Inter', sans-serif`;
+                        ctx.fillStyle = item.colorPrefix + symAlpha + ')';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(item.symbol, 0, 0);
+                    }
+                    ctx.restore();
+                }
+
+                // 2. Update and draw glowing particle nodes & constellation lines
+                for (let i = 0; i < networkNodes.length; i++) {
+                    const p = networkNodes[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    // Gentle cursor interaction
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dxMouse = p.x - mouse.x;
+                        const dyMouse = p.y - mouse.y;
+                        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                        if (distMouse < mouse.radius && distMouse > 0) {
+                            const force = (mouse.radius - distMouse) / mouse.radius;
+                            p.x += (dxMouse / distMouse) * force * 0.6;
+                            p.y += (dyMouse / distMouse) * force * 0.6;
+                        }
+                    }
+
+                    const currentAlpha = p.alpha + Math.sin(tick * p.pulseSpeed + p.pulsePhase) * 0.12;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.colorPrefix + Math.max(0.1, currentAlpha).toFixed(2) + ')';
+                    ctx.fill();
+
+                    // Connect nearby nodes
+                    for (let j = i + 1; j < networkNodes.length; j++) {
+                        const p2 = networkNodes[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        const maxDist = 125;
+
+                        if (dist < maxDist) {
+                            const isLight = currentThemeMode === 'light';
+                            const lineAlpha = (1 - dist / maxDist) * (isLight ? 0.22 : 0.14);
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = isLight 
+                                ? `rgba(2, 132, 199, ${lineAlpha.toFixed(3)})`
+                                : `rgba(6, 182, 212, ${lineAlpha.toFixed(3)})`;
+                            ctx.lineWidth = 0.85;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                papersBgAnimId = requestAnimationFrame(animate);
+            }
+
+            if (papersBgAnimId) cancelAnimationFrame(papersBgAnimId);
+            animate();
+        }
+
         window.onload = function() {
+            setThemeMode('dark');
+            loadAndIncrementVisitCounter();
             renderScreen();
+            initPapersHubBackground();
         };
     </script>
 </body>
