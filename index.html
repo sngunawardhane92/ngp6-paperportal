@@ -1938,49 +1938,51 @@
             alViews: INITIAL_AL_VIEWS
         };
 
-        function loadAndIncrementVisitCounter() {
+        // Shared (global) counters stored on Abacus counter service so every
+        // browser/device sees the same numbers. Displayed = INITIAL + shared value.
+        const COUNTER_API = 'https://abacus.jasoncameron.dev';
+        const COUNTER_NS = 'paperlk-com-ngp6';
+        const COUNTER_KEYS = { visits: 'website-visits', olViews: 'ol-paper-views', alViews: 'al-paper-views' };
+        const COUNTER_INITIALS = { visits: INITIAL_VISITS, olViews: INITIAL_OL_VIEWS, alViews: INITIAL_AL_VIEWS };
+
+        async function counterRequest(action, field) {
             try {
-                const rawVisits = localStorage.getItem('ngp6_website_visits_v2');
-                const rawOl = localStorage.getItem('ngp6_ol_paper_views_v2');
-                const rawAl = localStorage.getItem('ngp6_al_paper_views_v2');
-
-                if (rawVisits === null) {
-                    statsCounters.visits = INITIAL_VISITS;
-                } else {
-                    const parsedVisits = parseInt(rawVisits, 10);
-                    statsCounters.visits = (isNaN(parsedVisits) || parsedVisits < INITIAL_VISITS) ? INITIAL_VISITS : parsedVisits + 1;
-                }
-
-                const parsedOl = parseInt(rawOl || String(INITIAL_OL_VIEWS), 10);
-                statsCounters.olViews = (isNaN(parsedOl) || parsedOl < INITIAL_OL_VIEWS) ? INITIAL_OL_VIEWS : parsedOl;
-
-                const parsedAl = parseInt(rawAl || String(INITIAL_AL_VIEWS), 10);
-                statsCounters.alViews = (isNaN(parsedAl) || parsedAl < INITIAL_AL_VIEWS) ? INITIAL_AL_VIEWS : parsedAl;
-
-                localStorage.setItem('ngp6_website_visits_v2', String(statsCounters.visits));
-                localStorage.setItem('ngp6_ol_paper_views_v2', String(statsCounters.olViews));
-                localStorage.setItem('ngp6_al_paper_views_v2', String(statsCounters.alViews));
+                const res = await fetch(COUNTER_API + '/' + action + '/' + COUNTER_NS + '/' + COUNTER_KEYS[field]);
+                if (res.status === 404) return 0; // key not created yet
+                if (!res.ok) return null;
+                const data = await res.json();
+                return typeof data.value === 'number' ? data.value : null;
             } catch (e) {
-                statsCounters.visits = INITIAL_VISITS;
-                statsCounters.olViews = INITIAL_OL_VIEWS;
-                statsCounters.alViews = INITIAL_AL_VIEWS;
+                return null;
             }
+        }
+
+        async function syncCounter(field, action) {
+            const value = await counterRequest(action, field);
+            if (value !== null) {
+                statsCounters[field] = COUNTER_INITIALS[field] + value;
+                updateCountersDisplay();
+            }
+        }
+
+        function loadAndIncrementVisitCounter() {
             updateCountersDisplay();
+            // Count a visit once per browser session (refreshes don't inflate it)
+            let alreadyCounted = false;
+            try { alreadyCounted = sessionStorage.getItem('ngp6_visit_counted') === '1'; } catch (e) {}
+            syncCounter('visits', alreadyCounted ? 'get' : 'hit');
+            if (!alreadyCounted) {
+                try { sessionStorage.setItem('ngp6_visit_counted', '1'); } catch (e) {}
+            }
+            syncCounter('olViews', 'get');
+            syncCounter('alViews', 'get');
         }
 
         function incrementPaperViewCounter(examType) {
-            if (examType === 'OL') {
-                statsCounters.olViews += 1;
-                try {
-                    localStorage.setItem('ngp6_ol_paper_views_v2', String(statsCounters.olViews));
-                } catch (e) {}
-            } else {
-                statsCounters.alViews += 1;
-                try {
-                    localStorage.setItem('ngp6_al_paper_views_v2', String(statsCounters.alViews));
-                } catch (e) {}
-            }
+            const field = examType === 'OL' ? 'olViews' : 'alViews';
+            statsCounters[field] += 1; // instant feedback
             updateCountersDisplay();
+            syncCounter(field, 'hit'); // sync with shared total
         }
 
         function updateCountersDisplay() {
